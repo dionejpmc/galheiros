@@ -1,0 +1,1426 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="<?php echo $this->baseUrl() . '\js\ChartJS\Chart.js'; ?>"></script>
+    <link href="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/css/bootstrap.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+    <script src="<?php echo $this->baseUrl() . '/js/jquery-1.11.0.min.js';?>"></script>
+    <link href="<?php echo $this->baseUrl() . '\css\graficos.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="<?php echo $this->baseUrl() . '/favicon.ico'; ?>" type="image/x-icon"/>
+    <title>Gráficos: <?php echo $this->datapesquisa ;  ?> </title>
+</head>
+<body>
+    <?php 
+    //Criar um CASE
+        if ( count($this->dadosug01 ) <=0 || count($this->dadosug02 ) <=0 || count($this->dadosug02 ) <=0 || count($this->dadoscemat ) <=0 ) {
+            echo "<h2>Os dados referentes a data solicitada estão vazios ou inconsistentes.</h2> <br>"."<h4> Verifique a consistência dos dados da CEMAT ou das unidades de geração para melhor eficiência dos gráficos.</h4>";
+        }
+
+    ?>
+    <?php 
+        //--------------LEITURA POTÊNCIA ATIVA --------------------------
+        $i=0;
+        $somapativa01 = 0;
+        $somapativa02 = 0;
+        $somapativa03 = 0;
+        $gerado       = 0;
+        $consumido    = 0;
+        $exportado    = 0;
+        foreach ($this->dadosug01 as $key => $value01) {
+            $pativa01[$i]=$value01['pativa'];
+            $somapativa01 += $value01['pativa'];
+            $i++;
+        }     
+        $i=0;
+        foreach ($this->dadosug02 as $key => $value02) {
+            $pativa02[$i]=$value02['pativa'];
+            $somapativa02 += $value02['pativa'];
+            $i++;
+        }
+        $i=0;
+        foreach ($this->dadosug03 as $key => $value03) {
+            $pativa03[$i]=$value03['pativa'];
+            $somapativa03 += $value03['pativa'];
+            $i++;
+        }
+        /////////////////////////////////////////////////////////////
+        //---------LEITURA DAS FASES DO GERADOR A -------------------
+        $j=0;
+        foreach ($this->dadosug01 as $key => $fasegerador01) {
+            $array_temp_a_01[$j]=$fasegerador01['a_temp'];  
+            $array_temp_b_01[$j]=$fasegerador01['b_temp'];
+            $array_temp_v_01[$j]=$fasegerador01['v_temp'];    
+            $j++;
+        }
+        $j=0;
+        foreach ($this->dadosug02 as $key => $fasegerador02) {
+            $array_temp_a_02[$j]=$fasegerador02['a_temp'];
+            $array_temp_b_02[$j]=$fasegerador02['b_temp'];
+            $array_temp_v_02[$j]=$fasegerador02['v_temp'];
+            $j++;
+        }
+        $j=0;
+        foreach ($this->dadosug03 as $key => $fasegerador03) {
+            $array_temp_a_03[$j]=$fasegerador03['a_temp'];
+            $array_temp_b_03[$j]=$fasegerador03['b_temp'];
+            $array_temp_v_03[$j]=$fasegerador03['v_temp'];
+            $j++;
+        }
+        //////////////////////////////////////////////////////////////////
+        //---------LEITURA DAS UHRV -------------------
+        $h=0;
+        foreach ($this->dadosug01 as $key => $tempUHRV) {
+            $array_temp_UHRV_01[$h]=$tempUHRV['uhrv_c'];    
+            $h++;
+        }
+        $h=0;
+        foreach ($this->dadosug02 as $key => $tempUHRV02) {
+            $array_temp_UHRV_02[$h]=$tempUHRV02['uhrv_c'];
+            $h++;
+        }
+        $h=0;
+        foreach ($this->dadosug03 as $key => $tempUHRV03) {
+            $array_temp_UHRV_03[$h]=$tempUHRV03['uhrv_c'];
+            $h++;
+        }
+        //////////////////////////////////////////////////////////////////
+        //---------LEITURA DAS UHLM -------------------
+        $l=0;
+        foreach ($this->dadosug01 as $key => $tempUHLM) {
+            $array_temp_UHLM_01[$l]=$tempUHLM['uhlm_c'];    
+            $l++;
+        }
+        $l=0;
+        foreach ($this->dadosug02 as $key => $tempUHLM02) {
+            $array_temp_UHLM_02[$l]=$tempUHLM02['uhlm_c'];
+            $l++;
+        }
+        $l=0;
+        foreach ($this->dadosug03 as $key => $tempUHLM03) {
+            $array_temp_UHLM_03[$l]=$tempUHLM03['uhlm_c'];
+            $l++;
+        }
+        //////////////////////////////////////////////////////////////////
+        //---------LEITURA DO GRA -------------------
+        $g=0;
+        foreach ($this->dadosug01 as $key => $tempgra) {
+            $array_temp_gra_01[$g]=$tempgra['gra'];    
+            $g++;
+        }
+        $g=0;
+        foreach ($this->dadosug02 as $key => $tempgra02) {
+            $array_temp_gra_02[$g]=$tempgra02['gra'];
+            $g++;
+        }
+        $g=0;
+        foreach ($this->dadosug03 as $key => $tempgra03) {
+            $array_temp_gra_03[$g]=$tempgra03['gra'];
+            $g++;
+        }
+        //---------LEITURA DO MTE -------------------
+        $e=0;
+        foreach ($this->dadosug01 as $key => $tempmte) {
+            $array_temp_mte_01[$e]=$tempmte['mte'];    
+            $e++;
+        }
+        $e=0;
+        foreach ($this->dadosug02 as $key => $tempmte02) {
+            $array_temp_mte_02[$e]=$tempmte02['mte'];
+            $e++;
+        }
+        $e=0;
+        foreach ($this->dadosug03 as $key => $tempmte03) {
+            $array_temp_mte_03[$e]=$tempmte03['mte'];
+            $e++;
+        }
+        //---------LEITURA DO MTCE -------------------
+        $g=0;
+        foreach ($this->dadosug01 as $key => $tempmtce) {
+            $array_temp_mtce_01[$g]=$tempmtce['mtce'];    
+            $g++;
+        }
+        $g=0;
+        foreach ($this->dadosug02 as $key => $tempmtce02) {
+            $array_temp_mtce_02[$g]=$tempmtce02['mtce'];
+            $g++;
+        }
+        $g=0;
+        foreach ($this->dadosug03 as $key => $tempmtce03) {
+            $array_temp_mtce_03[$g]=$tempmtce03['mtce'];
+            $g++;
+        }
+        //---------LEITURA DO LNA -------------------
+        $n=0;
+        foreach ($this->dadosug01 as $key => $tempmg_lna) {
+            $array_temp_mg_lna_01[$n]=$tempmg_lna['mg_lna'];    
+            $n++;
+        }
+        $n=0;
+        foreach ($this->dadosug02 as $key => $tempmg_lna02) {
+            $array_temp_mg_lna_02[$n]=$tempmg_lna02['mg_lna'];
+            $n++;
+        }
+        $n=0;
+        foreach ($this->dadosug03 as $key => $tempmg_lna03) {
+            $array_temp_mg_lna_03[$n]=$tempmg_lna03['mg_lna'];
+            $n++;
+        }
+        //---------LEITURA DO MTG -------------------
+        $n=0;
+        foreach ($this->dadosug01 as $key => $tempmtg) {
+            $array_temp_mtg_01[$n]=$tempmtg['mtg'];    
+            $n++;
+             
+        }
+        $n=0;
+        foreach ($this->dadosug02 as $key => $tempmtg02) {
+            $array_temp_mtg_02[$n]=$tempmtg02['mtg'];
+            $n++;
+             
+        }
+        $n=0;
+        if (sizeof($this->dadoscemat) > 0) {
+            $x = 0;
+            foreach ($this->dadoscemat as $key => $value) {
+                $cematexp[$x] = $value['medicao_p_kw'];
+                $x++;
+                $exportado = $exportado + $value['medicao_p_kw'];
+
+            }
+        }
+        foreach ($this->dadosug03 as $key => $tempmtg03) {
+            $array_temp_mtg_03[$n]=$tempmtg03['mtg'];
+            $n++;
+            
+        }
+        $gerado      = $somapativa03 + $somapativa02 + $somapativa01;
+        $consumido   = $gerado - $exportado;
+    ?>  
+    <div class="list-group">
+        <a onclick="geracao();"         class="list-group-item geracao">Geração                      </a>
+        <a onclick="exportado();"       class="list-group-item exportado">Exportação (Kw) CEMAT      </a>
+        <a onclick="consumofazendas();" class="list-group-item ConsumoFazendas">Consumo (Kw) Fazendas</a>
+        <a onclick="geracaoxconsumo();" class="list-group-item geracaoxconsumo">Geração X Consumo    </a>
+        <a onclick="tempfase02();"      class="list-group-item tempfase02">C° Fase Gerador A B V UG02</a>
+        <a onclick="tempfase03();"      class="list-group-item tempfase03">C° Fase Gerador A B V UG03</a>
+        <a onclick="tempUHRV();"        class="list-group-item tempUHRV">C° UHRV                     </a>
+        <a onclick="tempUHLM();"        class="list-group-item tempUHLM">C° UHLM                     </a>
+        <a onclick="tempgra();"         class="list-group-item tempgra">C° Gaxetero                  </a>
+        <a onclick="tempmte();"         class="list-group-item tempmte">C° M. Turbina Escora         </a>
+        <a onclick="tempmtce();"        class="list-group-item tempmtce" >C° M. Turbina C. Escora    </a>
+        <a onclick="tempmg_lna();"      class="list-group-item tempmg_lna">C° M. Gerador (LNA)       </a>
+        <a onclick="tempmtg();"         class="list-group-item tempmtg">C° M. Turbina (Guia - 1)     </a>
+    </div>
+    <div class="divgraficos">
+        <canvas class="divgraficos canvasexportado" id="canvasexportado"></canvas>
+        <script>
+            var dataexportado = {
+                labels : 
+                [
+                "01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00",
+                "13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"
+                ],
+                datasets: 
+                [{
+                    label: "EXPORTADO" ,
+                    fillColor : "rgba(215, 22, 16, 1)",
+                    strokeColor : "rgba(215, 22, 16, 1)" ,
+                    pointColor : "rgba(215, 22, 16, 1)",
+                    pointStrokeColor : "rgba(215, 22, 16, 1)",
+                    pointHighlightFill : "rgba(215, 22, 16, 1)",
+                    pointHighlightStroke : "rgba(215, 22, 16, 1)",
+                    data: 
+                    [
+                        <?php
+                            for ($i=0; $i < count($cematexp); $i++) {
+                                echo $cematexp[$i]; 
+                                if (count($cematexp)>$i) {
+                                    echo ","; 
+                                }; 
+                            } 
+                        ?>
+                    ]
+                }] 
+            };
+            function exportado(){
+                var ctx = document.getElementById("canvasexportado").getContext("2d"); 
+                window.myLineChartdataexportado = new Chart(ctx).Line(dataexportado,
+                    { 
+                        responsive: true,
+                        datasetFill : false,
+                        scaleOverride: true,
+                        scaleSteps: 20,
+                        scaleStartValue: 0,
+                        scaleStepWidth: 300,
+                        scaleSteps: 20,
+                        scaleShowLabels: true, 
+                        bezierCurve : false,
+                        scaleShowGridLines : true
+                    }
+                );
+          } 
+        $(document).ready(function() {
+            $(".exportado").click(function(){
+                $(".canvastempfase03").hide();
+                $(".canvastempfase02").hide();
+                $(".canvasexportado").show(); 
+                $(".canvasgeracao").hide();
+                $(".canvastempUHRV").hide();
+                $(".canvasConsumoFazendas").hide();
+                $(".canvastempUHLM").hide();
+                $(".canvastempgra").hide();
+                $(".canvastempmte").hide();
+                $(".canvastempmtce").hide();
+                $(".canvastempmg_lna").hide();
+                $(".canvasgeracaoxconsumo").hide();
+                $(".canvastempmtg").hide();
+                $("canvastempfase").css("display:none"); 
+            }); 
+            $(".exportado").click(function(){
+                 $("#canvasexportado").show(); 
+            }); 
+        }); 
+        </script> 
+    </div>
+    <div class="divgraficos">
+        <canvas class="divgraficos canvasConsumoFazendas" id="canvasConsumoFazendas"></canvas>
+        <script>
+            var dataConsumoFazendas = {
+                labels : 
+                ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00",
+                "13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"
+                ],
+                datasets: 
+                [{
+                    label: "Consumo Fazendas" ,
+                    fillColor : "rgba(0, 0, 0, 1)",
+                    strokeColor : "rgba(0, 0, 0, 1)" ,
+                    pointColor : "rgba(0, 0, 0, 1)",
+                    pointStrokeColor : "rgba(0, 0, 0, 1)",
+                    pointHighlightFill : "rgba(0, 0, 0, 1)",
+                    pointHighlightStroke : "rgba(0, 0, 0, 1)",
+                    data:
+                    [
+                        <?php 
+                            for ($i=0; $i < count($pativa02); $i++) {
+                                echo ($pativa01[$i] + $pativa02[$i] + $pativa03[$i])-$cematexp[$i]; 
+                                if (count($pativa02)>$i or count($cematexp)>$i){
+                                  echo ","; 
+                                }; 
+                            } 
+                        ?>
+                    ]
+                  }] 
+            };
+            function consumofazendas(){
+                var ctx = document.getElementById("canvasConsumoFazendas").getContext("2d"); 
+                window.myLineChartdataConsumoFazendas = new Chart(ctx).Line(dataConsumoFazendas,
+                    { 
+                        responsive: true,
+                        datasetFill : false,
+                        scaleOverride: true,
+                        scaleSteps: 20,
+                        scaleStartValue: 0,
+                        scaleStepWidth: 150,
+                        scaleSteps: 20,
+                        scaleShowLabels: true, 
+                        bezierCurve : false,
+                        scaleShowGridLines : true
+                    }
+                );
+            } 
+            $(document).ready(function() {
+                $(".ConsumoFazendas").click(function(){
+                    $(".canvasgeracao").hide();
+                    $(".canvasexportado").hide();
+                    $(".canvastempfase03").hide();
+                    $(".canvastempfase02").hide();
+                    $(".canvasConsumoFazendas").show();
+                    $(".canvastempUHLM").hide();
+                    $(".canvastempUHRV").hide();
+                    $(".canvastempgra").hide();
+                    $(".canvastempmte").hide();
+                    $(".canvasgeracaoxconsumo").hide();
+                    $(".canvastempmtce").hide();
+                    $(".canvastempmg_lna").hide();
+                    $(".canvastempmtg").hide();
+                    $("canvastempUHLM").css("display:");
+                });
+                $(".ConsumoFazendas").click(function(){
+                    $("ConsumoFazendas").show();
+                });
+            });
+        </script> 
+    </div>
+<?php //IDENTEI ATÉ AQUI ?>
+
+<?php //IDENTEI ATÉ AQUI ?>
+
+<?php //IDENTEI ATÉ AQUI ?>
+
+<?php //IDENTEI ATÉ AQUI ?>
+
+<?php //IDENTEI ATÉ AQUI ?>
+
+<?php //IDENTEI ATÉ AQUI ?>
+
+<?php //IDENTEI ATÉ AQUI ?>
+
+<?php //IDENTEI ATÉ AQUI ?>
+
+<?php //IDENTEI ATÉ AQUI ?>
+
+<?php //IDENTEI ATÉ AQUI ?>
+
+
+          <div class="divgraficos">
+          <canvas class="divgraficos canvasgeracaoxconsumo" id="canvasgeracaoxconsumo"></canvas>
+          <script>
+            var dataGeracaoxConsumo = {
+            labels: ["GERADO - <?php echo $gerado ; ?> ","CONSUMIDO - <?php echo $consumido; ?>","EXPORTADO - <?php echo $exportado; ?>"],
+            datasets: [
+                          {
+
+                              label: "GERADO " ,
+                              fillColor: " rgba(4, 101, 216, 0.5)",
+                              strokeColor: " rgba(4, 101, 216, 0.7)",
+                              data: [<?php echo $gerado; ?>,,]
+                          },
+                          {
+                              label: "CONSUMIDO",
+                              fillColor: "rgba(215, 40, 40, 0.6);",
+                              strokeColor: "rgba(215, 40, 40, 0.8);",                                                 
+                              data: [,<?php echo $consumido; ?>,]
+                          },
+                          {
+                              label: "EXPORTADO",
+                              fillColor: "rgba(45, 170, 44, 0.5);",
+                              strokeColor: "rgba(45, 170, 44, 0.8);",                        
+                              data: [,,<?php echo $exportado; ?>]
+                          }
+                     ] 
+          };
+           function geracaoxconsumo(){
+                var ctx = document.getElementById("canvasgeracaoxconsumo").getContext("2d"); 
+
+                window.myBarChartdataGeracaoxConsumo = new Chart(ctx).Bar(dataGeracaoxConsumo,{ 
+                        scaleOverride: true,
+                        scaleSteps: 20,
+                        scaleFontColor: "#666",
+                        responsive: true,
+                        scaleStartValue: 0,
+                        tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+                        barDatasetSpacing : -300,
+                        scaleStepWidth: 2500
+
+                });
+               
+            } 
+            $(document).ready(function() {
+                $(".geracaoxconsumo").click(function(){
+                    $(".canvasgeracao").hide();
+                    $(".canvasexportado").hide();
+                    $(".canvastempfase03").hide();
+                    $(".canvastempfase02").hide();
+                    $(".canvasgeracaoxconsumo").show();
+
+                    $(".canvasConsumoFazendas").hide();
+                    $(".canvastempUHLM").hide();
+                    $(".canvastempUHRV").hide();
+                    $(".canvastempgra").hide();
+                    $(".canvastempmte").hide();
+                    $(".canvastempmtce").hide();
+                    $(".canvastempmg_lna").hide();
+                    $(".canvastempmtg").hide();
+                    $("canvastempUHLM").css("display:");
+                });
+                $(".geracaoxconsumo").click(function(){
+                    $("canvasgeracaoxconsumo").show();
+                });
+            });
+        </script> 
+    </div>
+    <div class="divgraficos">
+        <canvas class="divgraficos canvasgeracao" id="canvasgeracao"></canvas>
+        <script>
+            var lineChartDatapativa = 
+            {
+                labels : ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                datasets : 
+                [
+                {
+
+                      label: "UG-02",
+                      fillColor : " rgba(215, 22, 16, 1)",
+                      strokeColor : " rgba(215, 22, 16, 1)",
+                      pointColor : " rgba(215, 22, 16, 1)",
+                      pointStrokeColor : "rgba(215, 22, 16, 1)",
+                      pointHighlightFill : "rgba(215, 22, 16, 1)",
+                      pointHighlightStroke : "rgba(215, 22, 16, 1)",
+                      data : [
+                          <?php 
+                              for ($i=0; $i < count($pativa02); $i++) {
+                                  echo $pativa02[$i]; 
+                                  if (count($pativa02)>$i){
+                                      echo ","; 
+                                  }; 
+                              } 
+                          ?> 
+                      ] 
+                }, 
+                {
+                      label: "UG-03", 
+                      fillColor : "rgba(0, 130, 53, 1)", 
+                      strokeColor : "rgba(0, 130, 53, 1)" ,
+                      pointColor : "rgba(0, 130, 53, 1)", 
+                      pointStrokeColor : "rgba(0, 130, 53, 1)", 
+                      pointHighlightFill : "rgba(0, 130, 53, 1)", 
+                      pointHighlightStroke : "rgba(0, 130, 53, 1)",
+                      data : 
+                      [
+                          <?php 
+                              for ($i=0; $i < count($pativa03); $i++) {
+                                  echo $pativa03[$i]; 
+                                  if (count($pativa03)>$i) {
+                                      echo ","; 
+                                  }; 
+                              } 
+                          ?> 
+                      ] 
+                } 
+                ] 
+            } 
+            function geracao(){
+                var ctx = document.getElementById("canvasgeracao").getContext("2d"); 
+                window.myLinepativa = new Chart(ctx).Line(lineChartDatapativa, {
+                    responsive: true, 
+                    multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>",
+                    datasetFill : false,
+                    scaleOverride: true,
+                    scaleSteps: 20,
+                    scaleStartValue: 0,
+                    scaleStepWidth: 150,
+                    scaleShowLabels: true, 
+                    bezierCurve : false,
+                    scaleShowGridLines : true
+                }); 
+            } 
+            $(document).ready(function() {
+                    $(".geracao").click(function(){
+                    $(".canvastempfase03").hide();
+                    $(".canvastempfase02").hide();
+                    $(".canvasConsumoFazendas").hide();
+                    $(".canvasgeracao").show(); 
+                    $(".canvasexportado").hide();
+                    $(".canvastempUHRV").hide();
+                    $(".canvastempUHLM").hide();
+                    $(".canvasgeracaoxconsumo").hide();
+                    $(".canvastempgra").hide();
+                    $(".canvastempmte").hide();
+                    $(".canvastempmtce").hide();
+                    $(".canvastempmg_lna").hide();
+                    $(".canvastempmtg").hide();
+                    $("canvastempfase").css("display:none"); 
+                }); 
+                $(".geracao").click(function(){
+                    $("#canvasgeracao").show(); 
+                }); 
+            }); 
+        </script> 
+    </div>
+    <div class="divgraficos">
+          <canvas  class="divgraficos canvastempfase02" id="canvastempfase02"></canvas>
+          <script>
+              var lineChartDataTempfase02 = {
+                labels : ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                datasets : 
+                [
+                {
+                    label: "FASE A GERADOR",
+                    fillColor : " rgba(0, 0, 0, 1)",
+                    strokeColor : "rgba(0, 0, 0, 1)",
+                    pointColor : " rgba(0, 0, 0, 1)",
+                    pointStrokeColor : "rgba(0, 0, 0, 1)",
+                    pointHighlightFill : "rgba(0, 0, 0, 1)",
+                    pointHighlightStroke : "rgba(0, 0, 0, 1)",
+                    data : [
+                          <?php 
+                              for ($i=0; $i < count($array_temp_a_02); $i++) { 
+                                # code...
+                                echo $array_temp_a_02[$i];
+                                if (count($array_temp_a_02)>$i) {
+                                  echo ",";
+                                };
+                              }
+                          ?>
+                    ]
+                  },
+                  {
+
+                    label: "FASE B GERADOR",
+                    fillColor : "rgba(215, 22, 16, 1)",
+                    strokeColor : "rgba(215, 22, 16, 1)" ,
+                    pointColor : "rgba(215, 22, 16, 1)",
+                    pointStrokeColor : "rgba(215, 22, 16, 1)",
+                    pointHighlightFill : "rgba(215, 22, 16, 1)",
+                    pointHighlightStroke : "rgba(215, 22, 16, 1)",
+                    data : [
+                          <?php 
+                              for ($i=0; $i < count($array_temp_b_02); $i++) { 
+                                # code...
+                                echo $array_temp_b_02[$i];
+                                if (count($array_temp_b_02)>$i) {
+                                  echo ",";
+                                };
+                              }
+                          ?>
+                    ]
+                  },
+                  {
+                      label: "FASE V GERADOR",
+                      fillColor : "rgba(0, 130, 53, 1)",
+                      strokeColor : "rgba(0, 130, 53, 1)" ,
+                      pointColor : "rgba(0, 130, 53, 1)",
+                      pointStrokeColor : "rgba(0, 130, 53, 1)",
+                      pointHighlightFill : "rgba(0, 130, 53, 1)",
+                      pointHighlightStroke : "rgba(0, 130, 53, 1)",
+                      data : 
+                      [
+                            <?php 
+                                for ($i=0; $i < count($array_temp_v_02); $i++) { 
+                                    echo $array_temp_v_02[$i];
+                                    if (count($array_temp_v_02)>$i) {
+                                        echo ",";
+                                    };
+                                }
+                            ?>
+                      ]
+                  }
+                  ]
+              }
+             function tempfase02(){
+              var ctx = document.getElementById("canvastempfase02").getContext("2d");
+              window.myLineTempfase02 = new Chart(ctx).Line(lineChartDataTempfase02, {
+
+              responsive: true, multiTooltipTemplate: "<%= datasetLabel  %>- <%= value %> - UG02",datasetFill : false,scaleOverride: true,scaleSteps: 20 ,scaleStartValue: 0,scaleStepWidth: 5,scaleSteps: 20,scaleShowLabels: true, bezierCurve : false,scaleShowGridLines : true
+              });
+            }
+            $(document).ready(function() {
+              $(".tempfase02").click(function(){
+                  $(".canvasgeracao").hide();
+                  $(".canvastempfase02").show();
+                  $(".canvastempfase03").hide();
+                  $(".canvasexportado").hide(); 
+                  $(".canvasgeracaoxconsumo").hide();
+                  $(".canvasConsumoFazendas").hide();
+                  $(".canvastempUHRV").hide();
+                  $(".canvastempUHLM").hide();
+                  $(".canvastempgra").hide();
+                  $(".canvastempmte").hide();
+                  $(".canvastempmtce").hide();
+                  $(".canvastempmg_lna").hide();
+                  $(".canvastempmtg").hide();
+                  $("canvastempfase02").css("display:");
+              });
+              $(".tempfase02").click(function(){
+                 $("canvastempfase02").show();
+              });
+            });
+          </script>
+    </div>
+    <div class="divgraficos">
+          <canvas  class="divgraficos canvastempfase03" id="canvastempfase03"></canvas>
+          <script>
+              var lineChartDataTempfase03 = {
+                labels : ["01:00","03:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                datasets : 
+                [
+                {
+                    label: "FASE A GERADOR",
+                    fillColor : " rgba(0, 0, 0, 1)",
+                    strokeColor : "rgba(0, 0, 0, 1)",
+                    pointColor : " rgba(0, 0, 0, 1)",
+                    pointStrokeColor : "rgba(0, 0, 0, 1)",
+                    pointHighlightFill : "rgba(0, 0, 0, 1)",
+                    pointHighlightStroke : "rgba(0, 0, 0, 1)",
+                    data : [
+                          <?php 
+                              for ($i=0; $i < count($array_temp_a_03); $i++) { 
+                                # code...
+                                echo $array_temp_a_03[$i];
+                                if (count($array_temp_a_03)>$i) {
+                                  echo ",";
+                                };
+                              }
+                          ?>
+                    ]
+                  },
+                  {
+                    label: "FASE B GERADOR",
+                    fillColor : "rgba(215, 22, 16, 1)",
+                    strokeColor : "rgba(215, 22, 16, 1)" ,
+                    pointColor : "rgba(215, 22, 16, 1)",
+                    pointStrokeColor : "rgba(215, 22, 16, 1)",
+                    pointHighlightFill : "rgba(215, 22, 16, 1)",
+                    pointHighlightStroke : "rgba(215, 22, 16, 1)",
+                    data : [
+                          <?php 
+                              for ($i=0; $i < count($array_temp_b_03); $i++) { 
+                                # code...
+                                echo $array_temp_b_03[$i];
+                                if (count($array_temp_b_03)>$i) {
+                                  echo ",";
+                                };
+                              }
+                          ?>
+                    ]
+                  },
+                  {
+                      label: "FASE V GERADOR",
+                      fillColor : "rgba(0, 130, 53, 1)",
+                      strokeColor : "rgba(0, 130, 53, 1)" ,
+                      pointColor : "rgba(0, 130, 53, 1)",
+                      pointStrokeColor : "rgba(0, 130, 53, 1)",
+                      pointHighlightFill : "rgba(0, 130, 53, 1)",
+                      pointHighlightStroke : "rgba(0, 130, 53, 1)",
+                      data : 
+                      [
+                            <?php 
+                                for ($i=0; $i < count($array_temp_v_03); $i++) { 
+                                    echo $array_temp_v_03[$i];
+                                    if (count($array_temp_v_03)>$i) {
+                                        echo ",";
+                                    };
+                                }
+                            ?>
+                      ]
+                  }
+                  ]
+              }
+             function tempfase03(){
+              var ctx = document.getElementById("canvastempfase03").getContext("2d");
+              window.myLineTempfase03 = new Chart(ctx).Line(lineChartDataTempfase03, {
+
+              responsive: true, multiTooltipTemplate: "<%= datasetLabel  %>- <%= value %>- UG03",datasetFill : false,scaleOverride: true,scaleSteps: 20 ,scaleStartValue: 0,scaleStepWidth: 5,scaleSteps: 20,scaleShowLabels: true, bezierCurve : false,scaleShowGridLines : true
+              });
+            }
+            $(document).ready(function() {
+              $(".tempfase03").click(function(){
+                  $(".canvasgeracao").hide();
+                  $(".canvasexportado").hide(); 
+                  $(".canvastempfase03").show();
+                  $(".canvastempfase02").hide();
+                  $(".canvasgeracaoxconsumo").hide();
+                  $(".canvasConsumoFazendas").hide();
+                  $(".canvastempUHRV").hide();
+                  $(".canvastempUHLM").hide();
+                  $(".canvastempgra").hide();
+                  $(".canvastempmte").hide();
+                  $(".canvastempmtce").hide();
+                  $(".canvastempmg_lna").hide();
+                  $(".canvastempmtg").hide();
+                  $("canvastempfase03").css("display:");
+              });
+              $(".tempfase03").click(function(){
+                 $("canvastempfase03").show();
+              });
+            });
+          </script>
+    </div>
+    <div class="divgraficos">
+          <canvas  class="divgraficos canvastempUHRV" id="canvastempUHRV"></canvas>
+          <script>
+              var lineChartDataTempUHRV = 
+              {
+                  labels : ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                  datasets : 
+                  [
+                 {
+                      label: "C° UHRV UG01",
+                      fillColor : " rgba(255, 0, 0, 0.6);",
+                      strokeColor : " rgba(255, 0, 0, 0.2);",
+                      pointColor : " rgba(255, 0, 0, 0.6);",
+                      pointStrokeColor : "rgb(255, 2, 0)",
+                      pointHighlightFill : "rgb(255, 0, 0)",
+                      pointHighlightStroke : "rgba(255, 0, 0, 0.8)",
+                      data : [
+                            <?php 
+                                for ($h=0; $h < count($array_temp_UHRV_01); $h++) { 
+                                    echo $array_temp_UHRV_01[$h];
+                                    if (count($array_temp_UHRV_01)>$h) {
+                                        echo ",";
+                                    };
+                                }
+                            ?>
+                      ]
+                  },
+                  {
+                      label: "C° UHRV UG02",
+                      fillColor : "rgba(24, 135, 237, 0.8)",
+                      strokeColor : "rgba(24, 135, 237, 0.6)" ,
+                      pointColor : "rgba(24, 135, 237, 0.4);",
+                      pointStrokeColor : "rgba(24, 135, 237, 0.4)",
+                      pointHighlightFill : "#fff",
+                      pointHighlightStroke : "rgba(24, 135, 237, 0.2)",
+                      data : [
+                            <?php 
+                                for ($h=0; $h < count($array_temp_UHRV_02); $h++) { 
+                                  # code...
+                                  echo $array_temp_UHRV_02[$h];
+                                  if (count($array_temp_UHRV_02)>$h) {
+                                    echo ",";
+                                  };
+                                }
+                            ?>
+                      ]
+                    },
+                                {
+                    label: "C° UHRV UG03",
+                    fillColor : "rgba(125, 38, 205, 0.4)",
+                    strokeColor : "rgba(125, 38, 205, 0.6)" ,
+                    pointColor : "rgba(125, 38, 205, 0.6)",
+                    pointStrokeColor : "rgba(125, 300, 205, 0.6)",
+                    pointHighlightFill : "#7D26CD",
+                    pointHighlightStroke : "rgba(125, 38, 205, 0.4)",
+                    data : [
+                          <?php 
+                              for ($h=0; $h < count($array_temp_UHRV_03); $h++) { 
+                                # code...
+                                echo $array_temp_UHRV_03[$h];
+                                if (count($array_temp_UHRV_03)>$h) {
+                                  echo ",";
+                                };
+                              }
+                          ?>
+                    ]
+                  }
+                  ]
+              }
+             function tempUHRV(){
+              var ctx = document.getElementById("canvastempUHRV").getContext("2d");
+              window.myLineTempUHRV = new Chart(ctx).Line(lineChartDataTempUHRV, {
+
+              responsive: true, multiTooltipTemplate: "<%= datasetLabel  %>- <%= value %>",datasetFill : false,scaleOverride: true,scaleSteps: 20 ,scaleStartValue: 0,scaleStepWidth: 5,scaleSteps: 20,scaleShowLabels: true, bezierCurve : false,scaleShowGridLines : true
+              });
+            }
+            $(document).ready(function() {
+              $(".tempUHRV").click(function(){
+                   $(".canvasgeracao").hide();
+                   $(".canvastempfase03").hide();
+                   $(".canvastempfase02").hide();
+                   $(".canvastempUHRV").show();
+                   $(".canvastempUHLM").hide();
+                   $(".canvasgeracaoxconsumo").hide();
+                   $(".canvasConsumoFazendas").hide();
+                   $(".canvastempgra").hide();
+                   $(".canvastempmte").hide();
+                   $(".canvastempmtce").hide();
+                   $(".canvastempmg_lna").hide();
+                   $(".canvastempmtg").hide();
+                   $(".canvasexportado").hide();
+                   $("canvastempUHRV").css("display:");
+              });
+              $(".tempUHRV").click(function(){
+                 $("canvastempUHRV").show();
+              });
+            });
+          </script>
+    </div>
+   <div class="divgraficos">
+            <canvas  class="divgraficos canvastempUHLM" id="canvastempUHLM"></canvas>
+            <script>
+                var lineChartDataTempUHLM = 
+                {
+                    labels : ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                    datasets : 
+                    [
+                    {
+                        label: "C° UHLM UG01",
+                        fillColor : " rgba(255, 0, 0, 0.6);",
+                        strokeColor : " rgba(255, 0, 0, 0.2);",
+                        pointColor : " rgba(255, 0, 0, 0.6);",
+                        pointStrokeColor : "rgb(255, 2, 0)",
+                        pointHighlightFill : "rgb(255, 0, 0)",
+                        pointHighlightStroke : "rgba(255, 0, 0, 0.8)",
+                        data : [
+                              <?php 
+                                  for ($l=0; $l < count($array_temp_UHLM_01); $l++) { 
+                                      echo $array_temp_UHLM_01[$l];
+                                      if (count($array_temp_UHLM_01)>$l) {
+                                          echo ",";
+                                      };
+                                  }
+                              ?>
+                        ]
+                    },
+                    {
+                        label: "C° UHLM UG02",
+                        fillColor : "rgba(218, 165, 32, 0.4)",
+                        strokeColor : "rgba(218, 165, 32, 0.4)" ,
+                        pointColor : "rgba(218, 165, 32, 0.6)",
+                        pointStrokeColor : "rgba(218, 300, 32, 0.4)",
+                        pointHighlightFill : "#fff",
+                        pointHighlightStroke : "rgba(218, 165, 32, 0.4)",
+                        data : [
+                              <?php 
+                                  for ($l=0; $l < count($array_temp_UHLM_02); $l++) { 
+                                    # code...
+                                    echo $array_temp_UHLM_02[$l];
+                                    if (count($array_temp_UHLM_02)>$l) {
+                                      echo ",";
+                                    };
+                                  }
+                              ?>
+                        ]
+                      },
+                                  {
+                      label: "C° UHLM UG03",
+                      fillColor : "rgba(125, 38, 205, 0.4)",
+                      strokeColor : "rgba(125, 38, 205, 0.6)" ,
+                      pointColor : "rgba(125, 38, 205, 0.6)",
+                      pointStrokeColor : "rgba(125, 300, 205, 0.6)",
+                      pointHighlightFill : "#7D26CD",
+                      pointHighlightStroke : "rgba(125, 38, 205, 0.4)",
+                      data : [
+                            <?php 
+                                for ($l=0; $l < count($array_temp_UHLM_03); $l++) { 
+                                  # code...
+                                  echo $array_temp_UHLM_03[$l];
+                                  if (count($array_temp_UHLM_03)>$l) {
+                                    echo ",";
+                                  };
+                                }
+                            ?>
+                      ]
+                    }
+                    ]
+                }
+               function tempUHLM(){
+                var ctx = document.getElementById("canvastempUHLM").getContext("2d");
+                window.myLineTempUHLM = new Chart(ctx).Line(lineChartDataTempUHLM, {
+
+                responsive: true, multiTooltipTemplate: "<%= datasetLabel  %>- <%= value %>",datasetFill : false,scaleOverride: true,scaleSteps: 20 ,scaleStartValue: 0,scaleStepWidth: 5,scaleSteps: 20,scaleShowLabels: true, bezierCurve : false,scaleShowGridLines : true
+                });
+              }
+              $(document).ready(function() {
+                $(".tempUHLM").click(function(){
+                    $(".canvasgeracao").hide();
+                    $(".canvasexportado").hide();
+                    $(".canvastempfase03").hide();
+                    $(".canvastempfase02").hide();
+                    $(".canvastempUHLM").show();
+                    $(".canvastempUHRV").hide();
+                    $(".canvasgeracaoxconsumo").hide();
+                    $(".canvasConsumoFazendas").hide();
+                    $(".canvastempgra").hide();
+                    $(".canvastempmte").hide();
+                    $(".canvastempmtce").hide();
+                    $(".canvastempmg_lna").hide();
+                    $(".canvastempmtg").hide();
+                    $("canvastempUHLM").css("display:");
+                });
+                $(".tempUHLM").click(function(){
+                   $("canvastempUHLM").show();
+                });
+              });
+            </script>
+      </div>     
+      <div class="divgraficos">
+              <canvas  class="divgraficos canvastempgra" id="canvastempgra"></canvas>
+              <script>
+                  var lineChartDataTempgra = 
+                  {
+                      labels : ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                      datasets : 
+                      [
+                     {
+                          label: "C° Gaxetero UG01",
+                          fillColor : " rgba(255, 0, 0, 0.6);",
+                          strokeColor : " rgba(255, 0, 0, 0.2);",
+                          pointColor : " rgba(255, 0, 0, 0.6);",
+                          pointStrokeColor : "rgb(255, 2, 0)",
+                          pointHighlightFill : "rgb(255, 0, 0)",
+                          pointHighlightStroke : "rgba(255, 0, 0, 0.8)",
+                          data : [
+                                <?php 
+                                    for ($l=0; $l < count($array_temp_gra_01); $l++) { 
+                                        echo $array_temp_gra_01[$l];
+                                        if (count($array_temp_gra_01)>$l) {
+                                            echo ",";
+                                        };
+                                    }
+                                ?>
+                          ]
+                      },
+                      {
+                          label: "C° Gaxetero UG02",
+                          fillColor : "rgba(218, 165, 32, 0.4)",
+                          strokeColor : "rgba(218, 165, 32, 0.4)" ,
+                          pointColor : "rgba(218, 165, 32, 0.6)",
+                          pointStrokeColor : "rgba(218, 300, 32, 0.4)",
+                          pointHighlightFill : "#fff",
+                          pointHighlightStroke : "rgba(218, 165, 32, 0.4)",
+                          data : [
+                                <?php 
+                                    for ($l=0; $l < count($array_temp_gra_02); $l++) { 
+                                      # code...
+                                      echo $array_temp_gra_02[$l];
+                                      if (count($array_temp_gra_02)>$l) {
+                                        echo ",";
+                                      };
+                                    }
+                                ?>
+                          ]
+                        },
+                                    {
+                        label: "C° Gaxetero UG03",
+                        fillColor : " rgba(1, 13, 0, 0.8)",
+                        strokeColor : " rgba(1, 13, 0, 1)" ,
+                        pointColor : " rgba(1, 13, 0, 1)",
+                        pointStrokeColor : " rgba(1, 13, 0, 0.8)",
+                        pointHighlightFill : "white",
+                        pointHighlightStroke : " rgba(1, 13, 0, 0.6)",
+                        data : [
+                              <?php 
+                                  for ($g=0; $g < count($array_temp_gra_03); $g++) { 
+                                    # code...
+                                    echo $array_temp_gra_03[$g];
+                                    if (count($array_temp_gra_03)>$g) {
+                                      echo ",";
+                                    };
+                                  }
+                              ?>
+                        ]
+                      }
+                      ]
+                  }
+                 function tempgra(){
+                  var ctx = document.getElementById("canvastempgra").getContext("2d");
+                  window.myLineTempgra = new Chart(ctx).Line(lineChartDataTempgra, {
+
+                  responsive: true, multiTooltipTemplate: "<%= datasetLabel  %>- <%= value %>",datasetFill : false,scaleOverride: true,scaleSteps: 20 ,scaleStartValue: 0,scaleStepWidth: 5,scaleSteps: 20,scaleShowLabels: true, bezierCurve : false,scaleShowGridLines : true
+                  });
+                }
+                $(document).ready(function() {
+                  $(".tempgra").click(function(){
+                      $(".canvasgeracao").hide();
+                      $(".canvasConsumoFazendas").hide();
+                      $(".canvasexportado").hide();
+                      $(".canvastempfase03").hide();
+                      $(".canvastempfase02").hide();
+                      $(".canvastempgra").show();
+                      $(".canvastempUHRV").hide();
+                      $(".canvastempmte").hide();
+                      $(".canvastempUHLM").hide();
+                      $(".canvasgeracaoxconsumo").hide();
+                      $(".canvastempmtce").hide();
+                      $(".canvastempmg_lna").hide();
+                      $(".canvastempmtg").hide();
+                      $("canvastempgra").css("display:");
+                  });
+                  $(".tempgra").click(function(){
+                     $("canvastempgra").show();
+                  });
+                });
+              </script>
+        </div>
+        <div class="divgraficos">
+              <canvas  class="divgraficos canvastempmtce" id="canvastempmtce"></canvas>
+              <script>
+                  var lineChartDataTempmtce = 
+                  {
+                      labels : ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                      datasets : 
+                      [
+                      {
+                          label: "C° Gaxetero UG01",
+                          fillColor : " rgba(255, 0, 0, 0.6);",
+                          strokeColor : " rgba(255, 0, 0, 0.2);",
+                          pointColor : " rgba(255, 0, 0, 0.6);",
+                          pointStrokeColor : "rgb(255, 2, 0)",
+                          pointHighlightFill : "rgb(255, 0, 0)",
+                          pointHighlightStroke : "rgba(255, 0, 0, 0.8)",
+                          data : [
+                                <?php 
+                                    for ($l=0; $l < count($array_temp_mtce_01); $l++) { 
+                                        echo $array_temp_mtce_01[$l];
+                                        if (count($array_temp_mtce_01)>$l) {
+                                            echo ",";
+                                        };
+                                    }
+                                ?>
+                          ]
+                      },
+                      {
+                          label: "C° Gaxetero UG02",
+                          fillColor : "rgba(218, 165, 32, 0.4)",
+                          strokeColor : "rgba(218, 165, 32, 0.4)" ,
+                          pointColor : "rgba(218, 165, 32, 0.6)",
+                          pointStrokeColor : "rgba(218, 300, 32, 0.4)",
+                          pointHighlightFill : "#fff",
+                          pointHighlightStroke : "rgba(218, 165, 32, 0.4)",
+                          data : [
+                                <?php 
+                                    for ($l=0; $l < count($array_temp_mtce_02); $l++) { 
+                                      # code...
+                                      echo $array_temp_mtce_02[$l];
+                                      if (count($array_temp_mtce_02)>$l) {
+                                        echo ",";
+                                      };
+                                    }
+                                ?>
+                          ]
+                        },
+                                    {
+                        label: "C° Gaxetero UG03",
+                        fillColor : " rgba(1, 13, 0, 0.8)",
+                        strokeColor : " rgba(1, 13, 0, 1)" ,
+                        pointColor : " rgba(1, 13, 0, 1)",
+                        pointStrokeColor : " rgba(1, 13, 0, 0.8)",
+                        pointHighlightFill : "white",
+                        pointHighlightStroke : " rgba(1, 13, 0, 0.6)",
+                        data : [
+                              <?php 
+                                  for ($g=0; $g < count($array_temp_mtce_03); $g++) { 
+                                    # code...
+                                    echo $array_temp_mtce_03[$g];
+                                    if (count($array_temp_mtce_03)>$g) {
+                                      echo ",";
+                                    };
+                                  }
+                              ?>
+                        ]
+                      }
+                      ]
+                  }
+                 function tempmtce(){
+                  var ctx = document.getElementById("canvastempmtce").getContext("2d");
+                  window.myLineTempmtce = new Chart(ctx).Line(lineChartDataTempmtce, {
+
+                  responsive: true, multiTooltipTemplate: "<%= datasetLabel  %>- <%= value %>",datasetFill : false,scaleOverride: true,scaleSteps: 20 ,scaleStartValue: 0,scaleStepWidth: 5,scaleSteps: 20,scaleShowLabels: true, bezierCurve : false,scaleShowGridLines : true
+                  });
+                }
+                $(document).ready(function() {
+                  $(".tempmtce").click(function(){
+                      $(".canvasgeracao").hide();
+                      $(".canvasexportado").hide();
+                      $(".canvastempfase03").hide();
+                      $(".canvastempfase02").hide();
+                      $(".canvastempmtce").show();
+                      $(".canvasgeracaoxconsumo").hide();
+                      $(".canvasConsumoFazendas").hide();
+                      $(".canvastempUHRV").hide();
+                      $(".canvastempUHLM").hide();
+                      $(".canvastempmte").hide();
+                      $(".canvastempgra").hide();
+                      $(".canvastempmg_lna").hide();
+                      $(".canvastempmtg").hide();
+                      $("canvastempmtce").css("display:");
+                  });
+                  $(".tempmtce").click(function(){
+                     $("canvastempmtce").show();
+                  });
+                });
+              </script>
+        </div>
+        <div class="divgraficos">
+              <canvas  class="divgraficos canvastempmte" id="canvastempmte"></canvas>
+              <script>
+                  var lineChartDataTempmte = 
+                  {
+                      labels : ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00",
+                      "13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                      datasets : 
+                      [
+                      {
+                          label: "C° Gaxetero UG01",''
+                          fillColor : " rgba(255, 0, 0, 0.6);",
+                          strokeColor : " rgba(255, 0, 0, 0.2);",
+                          pointColor : " rgba(255, 0, 0, 0.6);",
+                          pointStrokeColor : "rgb(255, 2, 0)",
+                          pointHighlightFill : "rgb(255, 0, 0)",
+                          pointHighlightStroke : "rgba(255, 0, 0, 0.8)",
+                          data : [
+                                <?php 
+                                    for ($l=0; $l < count($array_temp_mte_01); $l++) { 
+                                        echo $array_temp_mte_01[$l];
+                                        if (count($array_temp_mte_01)>$l) {
+                                            echo ",";
+                                        };
+                                    }
+                                ?>
+                          ]
+                      },
+                      {
+                          label: "C° Gaxetero UG02",
+                          fillColor : " rgba(0, 0, 0, 0.7)",
+                          strokeColor : " rgba(0, 0, 0, 0.6)" ,
+                          pointColor : " rgba(0, 0, 0, 0.7)",
+                          pointStrokeColor : "rgba(0, 0, 0, 0.4) ",
+                          pointHighlightFill : "black",
+                          pointHighlightStroke : " rgba(0, 0, 0, 0.7)",
+                          data : [
+                                 <?php 
+                                    for ($l=0; $l < count($array_temp_mte_02); $l++){
+                                      echo $array_temp_mte_02[$l];
+                                      if (count($array_temp_mte_02)>$l) {
+                                        echo ",";
+                                      };
+                                    }
+                                 ?>
+                          ]
+                        },
+                                    {
+                        label: "C° Gaxetero UG03",
+                        fillColor : " rgba(4, 101, 216, 1)",
+                        strokeColor : " rgba(4, 101, 216, 1)" ,
+                        pointColor : " rgba(4, 101, 216, 1)",
+                        pointStrokeColor : " rgba(4, 101, 216, 1)",
+                        pointHighlightFill : "rgba(4, 101, 216, 1)",
+                        pointHighlightStroke : " rgba(4, 101, 216, 1)",
+                        data : [
+                              <?php 
+                                  for ($g=0; $g < count($array_temp_mte_03); $g++) { 
+                                    # code...
+                                    echo $array_temp_mte_03[$g];
+                                    if (count($array_temp_mte_03)>$g) {
+                                      echo ",";
+                                    };
+                                  }
+                              ?>
+                        ]
+                      }
+                      ]
+                  }
+                 function tempmte(){
+
+                  var ctx = document.getElementById("canvastempmte").getContext("2d");
+                  window.myLineTempmte = new Chart(ctx).Line(lineChartDataTempmte,{
+                   responsive: true, multiTooltipTemplate: "<%= datasetLabel  %>- <%= value %>",datasetFill : false,scaleOverride: true,scaleSteps: 20 ,scaleStartValue: 0,scaleStepWidth: 5,scaleSteps: 20,scaleShowLabels: true, bezierCurve : false,scaleShowGridLines : true
+                  });
+                }
+                $(document).ready(function() {
+                  $(".tempmte").click(function(){
+                      $(".canvasgeracao").hide();
+                      $(".canvasexportado").hide();
+                      $(".canvastempfase03").hide();
+                      $(".canvastempfase02").hide();
+                      $(".canvastempmte").show();
+                      $(".canvasgeracaoxconsumo").hide();
+                      $(".canvasConsumoFazendas").hide();
+                      $(".canvastempUHRV").hide();
+                      $(".canvastempUHLM").hide();
+                      $(".canvastempmtce").hide();
+                      $(".canvastempgra").hide();
+                      $(".canvastempmg_lna").hide();
+                      $(".canvastempmtg").hide();
+                      $("canvastempmte").css("display:");
+                  });
+                  $(".tempmte").click(function(){
+                     $("canvastempmte").show();
+                  });
+                });
+              </script>
+        </div>
+        <div class="divgraficos">
+              <canvas  class="divgraficos canvastempmtg" id="canvastempmtg"></canvas>
+              <script>
+                  var lineChartDataTempmtg = 
+                  {
+                      labels : ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                      datasets : 
+                      [
+                      {
+                          label: "C° Gaxetero UG01",
+                          fillColor : " rgba(255, 0, 0, 0.6);",
+                          strokeColor : " rgba(255, 0, 0, 0.2);",
+                          pointColor : " rgba(255, 0, 0, 0.6);",
+                          pointStrokeColor : "rgb(255, 2, 0)",
+                          pointHighlightFill : "rgb(255, 0, 0)",
+                          pointHighlightStroke : "rgba(255, 0, 0, 0.8)",
+                          data : [
+                                <?php 
+                                    for ($l=0; $l < count($array_temp_mtg_01); $l++) { 
+                                        echo $array_temp_mtg_01[$l];
+                                        if (count($array_temp_mtg_01)>$l) {
+                                            echo ",";
+                                        };
+                                    }
+                                ?>
+                          ]
+                      },
+                      {
+                          label: "C° Gaxetero UG02",
+                          fillColor : " rgba(0, 0, 0, 1)",
+                          strokeColor : " rgba(0, 0, 0, 1)" ,
+                          pointColor : " rgba(0, 0, 0, 1)",
+                          pointStrokeColor : "rgba(0, 0, 0, 1) ",
+                          pointHighlightFill : "rgba(0, 0, 0, 1)",
+                          pointHighlightStroke : " rgba(0, 0, 0, 1)",
+                          data : [
+                                <?php 
+                                    for ($l=0; $l < count($array_temp_mtg_02); $l++) {
+                                      echo $array_temp_mtg_02[$l];
+                                      if (count($array_temp_mtg_02)>$l) {
+                                        echo ",";
+                                      };
+                                    }
+                                ?>
+                          ]
+                        },
+                                    {
+                        label: "C° Gaxetero UG03",
+                        fillColor : " rgba(0, 130, 53, 1)",
+                        strokeColor : " rgba(0, 130, 53, 1)" ,
+                        pointColor : " rgba(0, 130, 53, 1) ",
+                        pointStrokeColor : " rgba(0, 130, 53, 1)",
+                        pointHighlightFill : "rgba(0, 130, 53, 1) ",
+                        pointHighlightStroke : " rgba(0, 130, 53, 1)",
+                        data : [
+                              <?php 
+                                  for ($g=0; $g < count($array_temp_mtg_03); $g++) { 
+                                    # code...
+                                    echo $array_temp_mtg_03[$g];
+                                    if (count($array_temp_mtg_03)>$g) {
+                                      echo ",";
+                                    };
+                                  }
+                              ?>
+                        ]
+                      }
+                      ]
+                  }
+                 function tempmtg(){
+                  var ctx = document.getElementById("canvastempmtg").getContext("2d");
+                  window.myLineTempmtg = new Chart(ctx).Line(lineChartDataTempmtg, {
+                  responsive: true, multiTooltipTemplate: "<%= datasetLabel  %>- <%= value %>",datasetFill : false,scaleOverride: true,scaleSteps: 20 ,scaleStartValue: 0,scaleStepWidth: 5,scaleSteps: 20,scaleShowLabels: true, bezierCurve : false,scaleShowGridLines : true
+                  });
+                }
+                $(document).ready(function() {
+                  $(".tempmtg").click(function(){
+                      $(".canvasgeracao").hide();
+                      $(".canvasexportado").hide();
+                      $(".canvastempfase03").hide();
+                      $(".canvastempfase02").hide();
+                      $(".canvastempmtg").show();
+                      $(".canvastempUHRV").hide();
+                      $(".canvastempUHLM").hide();
+                      $(".canvastempmtce").hide();
+                      $(".canvastempgra").hide();
+                      $(".canvasgeracaoxconsumo").hide();
+                      $(".canvasConsumoFazendas").hide();
+                      $(".canvastempmg_lna").hide();
+                      $("canvastempmtg").css("display:");
+                  });
+                  $(".tempmtg").click(function(){
+                     $("canvastempmtg").show();
+                  });
+                });
+              </script>
+        </div>
+        <div class="divgraficos">
+              <canvas  class="divgraficos canvastempmg_lna" id="canvastempmg_lna"></canvas>
+              <script>
+                  var lineChartDataTempmg_lna = 
+                  {
+                      labels : ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                      datasets : 
+                      [
+                      {
+                          label: "C° Gaxetero UG01",
+                          fillColor : " rgba(255, 0, 0, 0.6);",
+                          strokeColor : " rgba(255, 0, 0, 0.2);",
+                          pointColor : " rgba(255, 0, 0, 0.6);",
+                          pointStrokeColor : "rgb(255, 2, 0)",
+                          pointHighlightFill : "rgb(255, 0, 0)",
+                          pointHighlightStroke : "rgba(255, 0, 0, 0.8)",
+                          data : [
+                                <?php 
+                                    for ($l=0; $l < count($array_temp_mg_lna_01); $l++) { 
+                                        echo $array_temp_mg_lna_01[$l];
+                                        if (count($array_temp_mg_lna_01)>$l) {
+                                            echo ",";
+                                        };
+                                    }
+                                ?>
+                          ]
+                      },
+                      {
+
+
+                          label: "C° Gaxetero UG02",
+                          fillColor : " rgba(0, 130, 53, 1)",
+                          strokeColor : " rgba(0, 130, 53, 1)" ,
+                          pointColor : " rgba(0, 130, 53, 1)",
+                          pointStrokeColor : "rgba(0, 130, 53, 1) ",
+                          pointHighlightFill : "rgba(0, 130, 53, 1)",
+                          pointHighlightStroke : "rgba(0, 130, 53, 1)",
+                          data : [
+                                <?php 
+                                    for ($l=0; $l < count($array_temp_mg_lna_02); $l++) { 
+                                      # code...
+                                      echo $array_temp_mg_lna_02[$l];
+                                      if (count($array_temp_mg_lna_02)>$l) {
+                                        echo ",";
+                                      };
+                                    }
+                                ?>
+                          ]
+                        },
+                                    {
+                        label: "C° Gaxetero UG03",
+                        fillColor : "rgba(0, 0, 0,  1) ",
+                        strokeColor : "rgba(0, 0, 0,  1)" ,
+                        pointColor : "rgba(0, 0, 0,  1) ",
+                        pointStrokeColor : "rgba(0, 0, 0,  1)",
+                        pointHighlightFill : "rgba(0, 0, 0,  1) ",
+                        pointHighlightStroke : "rgba(0, 0, 0,  1)",
+                        data : [
+                              <?php 
+                                  for ($g=0; $g < count($array_temp_mg_lna_03); $g++) { 
+                                    # code...
+                                    echo $array_temp_mg_lna_03[$g];
+                                    if (count($array_temp_mg_lna_03)>$g) {
+                                      echo ",";
+                                    };
+                                  }
+                              ?>
+                        ]
+                      }
+                      ]
+                  }
+                 function tempmg_lna(){
+                  var ctx = document.getElementById("canvastempmg_lna").getContext("2d");
+                  window.myLineTempmg_lna = new Chart(ctx).Line(lineChartDataTempmg_lna, {
+
+                  responsive: true, multiTooltipTemplate: "<%= datasetLabel  %>- <%= value %>",datasetFill : false,scaleOverride: true,scaleSteps: 20 ,scaleStartValue: 0,scaleStepWidth: 5,scaleSteps: 20,scaleShowLabels: true, bezierCurve : false,scaleShowGridLines : true
+                  });
+                }
+                $(document).ready(function() {
+                  $(".tempmg_lna").click(function(){
+                      $(".canvasgeracao").hide();
+                      $(".canvastempmg_lna").show();
+                      $(".canvastempUHRV").hide();
+                      $(".canvasgeracaoxconsumo").hide();
+                      $(".canvasConsumoFazendas").hide();
+                      $(".canvastempUHLM").hide();
+                      $(".canvastempmtce").hide();
+                      $(".canvastempgra").hide();
+                      $(".canvastempmtg").hide();
+                      $(".canvastempfase03").hide();
+                      $(".canvastempfase02").hide();
+                      $("canvastempmg_lna").css("display:");
+                  });
+                  $(".tempmg_lna").click(function(){
+                      $("canvastempmg_lna").show();
+                  });
+                });
+              </script>
+        </div>
+<div>
+<a style="margin-left: 45%; " href="<?php echo $this->url(array('controller' => 'menu', 'action' => 'index'), null, true); ?>"><button type="submit" style="width: 10%; " class="btn btn-warning"> Menu</button></a>
+</div>
+</body>
+
+</html>

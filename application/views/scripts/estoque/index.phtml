@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Estoque</title>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="<?php echo $this->baseUrl() . '/favicon.ico'; ?>" type="image/x-icon"/>
+    <script src="<?php echo $this->baseUrl() . '/js/jquery-1.11.0.min.js';?>"></script>
+	<link rel="stylesheet"	 href="<?php echo $this->baseUrl() . '/css/customestoque.css'; ?> " media="screen" />
+	<link href="<?php echo $this->baseUrl() . '/img/glyphicons/glyphicons'; ?>" media="all"/>
+	<link href="<?php echo $this->baseUrl() . '/img/glyphicons/glyphicons_social'; ?>" media="all"/>
+	<link href="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/css/bootstrap.css'; ?>" rel="stylesheet" type="text/css" />
+	<script src="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/js/bootstrap.js'; ?>"></script>	 
+</script>
+  </head>
+  <body>
+    <div>
+    <a style="margin-left: 45%;" href="<?php echo $this->url(array('controller' => 'menu', 'action' => 'index'), null, true); ?>"><button type="submit" style="width: 10%; " class="btn btn-warning"> Menu</button></a>
+</div>
+    <h1 id="titulotabela">Itens de Estoque</h1>
+       <div>
+      <?php echo $this->message; ?>
+    </div>
+    <form method="post" id="frm-filtro">
+      <p>
+        <label for="pesquisar">Pesquisar</label>
+        <input type="text" id="pesquisar" name="pesquisar" size="30" />
+      </p>
+    </form>
+    <div id="divea">
+    	<button type="button" data-target=".new" data-toggle="modal" class="btn btn-success">Adicionar Linha <span  class="glyphicon glyphicon-plus"></span></button>	
+    </div>
+    <table cellspacing="0" summary="Tabela de dados fictícios">
+      <thead>
+        <tr>
+          <th><input type="checkbox" value="1" id="marcar-todos" name="marcar-todos" /></th>
+          <th>ID</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Aplicavel</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <?php 
+      foreach ($this->itens as $key => $value) {
+       		echo '<tr/>';
+       		echo '<td><input type="checkbox" value="1" name="marcar[]" /></td>';
+       		echo '<td>';echo $value['id'];echo '</td>';
+       		echo '<td>';echo $value['descricao']; echo '</td>';
+       		echo '<td>';echo $value['qtde'];echo '</td>';
+       		echo '<td>';echo $value['aplicavel'];echo '</td>';
+       		echo '
+       			  <td> 
+		            <a data-target=".pecaadd"      data-toggle="modal" ><span  class="glyphicon glyphicon-plus"></span></a>
+		            <a data-target=".pecabaixar"   data-toggle="modal" ><span  class="glyphicon glyphicon glyphicon-arrow-down"></span></a>
+		            <a data-target=".pecaextornar" data-toggle="modal" ><span  class="glyphicon glyphicon glyphicon-sort"></span></a>
+		            <a data-target=".pecaremover"  data-toggle="modal" ><span  class="glyphicon glyphicon-remove"></span></a>
+		          </td>
+       		    ';
+       	    echo '</tr>';
+       	     }
+      ?>
+      </tbody>
+    </table>
+    <script>
+    $(function(){      
+      $('table > tbody > tr:odd').addClass('odd');
+      
+      $('table > tbody > tr').hover(function(){
+        $(this).toggleClass('hover');
+      });
+      
+      $('#marcar-todos').click(function(){
+        $('table > tbody > tr > td > :checkbox')
+          .attr('checked', $(this).is(':checked'))
+          .trigger('change');
+      });
+      
+      $('table > tbody > tr > td > :checkbox').bind('click change', function(){
+        var tr = $(this).parent().parent();
+        if($(this).is(':checked')) $(tr).addClass('selected');
+        else $(tr).removeClass('selected');
+      });
+      
+     //$('form').submit(function(e){ e.preventDefault(); }); CAUSA CONFLITO NO SUBMIT
+      
+      $('#pesquisar').keydown(function(){
+        var encontrou = false;
+        var termo = $(this).val().toLowerCase();
+        $('table > tbody > tr').each(function(){
+          $(this).find('td').each(function(){
+            if($(this).text().toLowerCase().indexOf(termo) > -1) encontrou = true;
+          });
+          if(!encontrou) $(this).hide();
+          else $(this).show();
+          encontrou = false;
+        });
+      });
+  
+      $("table") 
+        .tablesorter({
+          dateFormat: 'pt-BR',
+          headers: {
+            0: {
+              sorter: false
+            },
+            5: {
+              sorter: false
+            }
+          }
+        }) 
+        .tablesorterPager({container: $("#pager")})
+        .bind('sortEnd', function(){
+          $('table > tbody > tr').removeClass('odd');
+          $('table > tbody > tr:odd').addClass('odd');
+        });
+    });
+    </script>
+    <tbody>
+    	 <div class="modal fade pecabaixar" role="dialog" tabindex="-1" aria-hidden="true">
+  		<div class="modal-dialog modal-lg ">
+   			<div class="modal-content">
+   				<form style="margin-left: 15%;"  method="post" style="margin-left: 15%;" action="<?php echo $this->url(array('controller' => 'estoque', 'action' => 'decrementaritem'), null, true); ?>">
+   					<label for="">ID do Item a ser Baixado</label><br>
+   					<input pattern="[0-9]+$" required="required" style="width: 10%;" type="text" name="id"><br>
+   					<label  for="">Quantidade</label><br>
+   					<input  required="required" pattern="[0-9]+$" style="width: 10%;" type="text" name="qtde"><br><br>
+   					<input style="display: none;" type="text" name="movimento" value="Saida/Baixa">
+   					<button type="submit" class="btn btn-primary btn-large">Salvar</button>	
+   				</form>
+   			</div>
+   		</div>
+   	</div>
+   	<div class="modal fade pecaextornar" role="dialog" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+   			<div class="modal-content">
+   				<form style="margin-left: 15%;"  method="post" style="margin-left: 15%;" action="<?php echo $this->url(array('controller' => 'estoque', 'action' => 'extornaritem'), null, true); ?>">
+   					<label for="">ID do Item a ser Extornado</label><br>
+   					<input  required="required" pattern="[0-9]+$" style="width: 10%;" type="text" name="id"><br>
+   					<label for="">Quantidade</label><br>
+   					<input  required="required" pattern="[0-9]+$"  style="width: 10%;" type="text" name="qtde"><br><br>	
+            <input style="display: none;" type="text" name="movimento" value="Entrada/Extornado">	
+   					<button type="submit" class="btn btn-primary btn-large">Salvar</button>			
+   				</form>
+   			</div>
+   		</div>
+   	</div>
+   	<div class="modal fade pecaremover" role="dialog" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+   			<div class="modal-content">
+   				<form style="margin-left: 15%;"  method="post" style="margin-left: 15%;" action="<?php echo $this->url(array('controller' => 'estoque', 'action' => 'excluirlinha'), null, true); ?>">
+   					<label for="">ID do Item a Remover</label><br>
+   					<input  required="required"pattern="[0-9]+$" style="width: 10%;" type="text" name="id"><br>
+   					
+   					<input style="display: none;" type="text" name="movimento" value="Saida/Linha Excluida">
+   					<button type="submit" class="btn btn-primary btn-large">Salvar</button>			
+   				</form>
+   			</div>
+   		</div>
+   	</div>
+   	<div class="modal fade pecaadd" role="dialog" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+   			<div class="modal-content">
+   				<form name="form" method="post" style="margin-left: 15%;"  action="<?php echo $this->url(array('controller' => 'estoque', 'action' => 'salvariten'), null, true); ?>" >
+   				    <label >ID do Ítem a ser Incrementado</label><br>
+   					<input  required="required" pattern="[0-9]+$" style="width: 10%;" type="text" name="id"><br>
+   					<label >Quantidade</label><br>
+   					<input   required="required" pattern="[0-9]+$" style="width: 10%;" type="text" name="qtde"><br><br>
+   					<input style="display: none;" type="text" name="movimento" value="Entrada a incrementar">
+   					<button type="submit" class="btn btn-primary btn-large">Salvar</button>	
+   				</form>
+   			</div>
+   		</div>
+   	</div>
+   	<div class="modal fade new" role="dialog" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+   			<div class="modal-content">
+   				<form name="form" method="post" style="margin-left: 15%;"  action="<?php echo $this->url(array('controller' => 'estoque', 'action' => 'novoitem'), null, true); ?>" >
+   				    <label >Descrição do Item</label><br>
+   					<input  required="required" style="width: 50%;" type="text" name="descricao"><br>
+   					<label >Onde é usado</label><br>
+   					<input   required="required" style="width: 50%;" type="text" name="aplicavel"><br><br>
+   					<input style="display: none;" type="text" name="movimento" value="Entrada/Nova Linha">
+   					<button type="submit" class="btn btn-primary btn-large">Salvar</button>	
+   				</form>
+   			</div>
+   		</div>
+   	</div>
+  </body>
+</html>

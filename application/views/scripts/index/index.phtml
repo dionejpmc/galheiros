@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Autenticação</title>
+	<link href="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/css/bootstrap.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+	<link href="<?php echo $this->baseUrl() . '/css/indexauth.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" href="<?php echo $this->baseUrl() . '/favicon.ico'; ?>" type="image/x-icon"/>
+</head>
+<body>
+	<div id="divautentica">
+		<form class="form-signin" id="formlogin" method="post" action="<?php echo $this->url(array('controller' => 'auth', 'action' => 'index'), null, true); ?>">
+		        <h2 class="form-signin-heading">Por favor autentique-se</h2>
+		        <input name="input_usuario" type="text" class="form-control" placeholder="Usuário" required title="Digite seu nome de usuário." x-moz-errormessage="Não se esqueça  do nome de usuário..."  autofocus autocomplete="off">
+		        <input name="input_senha" type="password" class="form-control" placeholder="Senha" required title="Digite sua senha." x-moz-errormessage="Não se esqueça da senha..." autocomplete="off" ><br>
+		        <button class="btn btn-lg btn-primary btn-block" type="submit"> LogIn</button>
+		</form>
+	</div>	
+	
+</body>
+</html>

@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link href="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/css/bootstrap.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+	<script src="<?php echo $this->baseUrl() . '/js/jquery-1.11.0.min.js';?>"></script>
+    <script src="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/js/bootstrap.js'; ?>"></script>
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+    <link href="<?php echo $this->baseUrl() . '/img/glyphicons/glyphicons'; ?>" media="all"/>
+    <link href="<?php echo $this->baseUrl() . '/img/glyphicons/glyphicons_social'; ?>" media="all"/>
+    <link href="<?php echo $this->baseUrl() . '/css/menu1.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+    <script src="<?php echo $this->baseUrl() . '\js\ChartJS\Chart.js'; ?>"></script>
+    <link rel="shortcut icon" href="<?php echo $this->baseUrl() . '/favicon.ico'; ?>" type="image/x-icon"/>
+	<script type="text/javascript">// <![CDATA[
+				var imageCount = 0;
+				var currentImage = 0;
+				var images = new Array();
+				// images[0] = "<?php echo $this->baseUrl() . '/img/bealt-light.jpg';?>";
+				// images[1] = "<?php echo $this->baseUrl() . '/img/nigth-lighth.jpg';?>";
+				// images[2] = "<?php echo $this->baseUrl() . '/img/2015.jpg';?>";
+				// images[3] = "<?php echo $this->baseUrl() . '/img/bomfuturo.jpg';?>";
+				// images[4] = "<?php echo $this->baseUrl() . '/img/plasma.jpg';?>";
+				// images[5] = "<?php echo $this->baseUrl() . '/img/poste-renovavel.jpg';?>";
+				var preLoadImages = new Array();
+				for (var i = 0; i < images.length; i++)
+				{
+				   if (images[i] == "")
+				      break;
+
+				   preLoadImages[i] = new Image();
+				   preLoadImages[i].src = images[i];
+				   imageCount++;
+				}
+				function startSlideShow()
+				{
+				   if (document.body && imageCount > 0)
+				   {
+				      document.body.style.backgroundImage = "url("+images[currentImage]+")";    
+				      document.body.style.backgroundAttachment = "fixed";
+				      document.body.style.backgroundRepeat = "no-repeat";
+				      document.body.style.backgroundPosition = "center";
+				      document.body.style.backgroundSize = "100%";
+
+				 
+				      currentImage = currentImage + 1;
+				      if (currentImage > (imageCount-1))
+				      { 
+				         currentImage = 0;
+				      }
+				      setTimeout('startSlideShow()', 60 * 1000);
+
+				   }
+				}
+				startSlideShow();
+	</script>
+	<?php 
+	      date_default_timezone_set('America/Cuiaba');
+	        $horario  =  date('H:i');
+	        $datahoje =  date('d-m-Y');
+	 ?>
+	<title>MENU</title>
+</head>
+<body id="fundo"   onload= "startSlideShow();"  >
+	<?php 
+		echo $this->erro;
+	 ?>
+<div id="ug">
+	<div>
+		<a id="ug01" class="btn btn-primary btn-large" data-toggle="modal" data-target=".bs-example-modal-lg-01"><h4>UG01</h4></a>
+		<a id="ug02" class="btn btn-primary btn-large" data-toggle="modal" data-target=".bs-example-modal-lg-02"><h4>UG02</h4></a>
+		<a id="ug03" class="btn btn-primary btn-large" data-toggle="modal" data-target=".bs-example-modal-lg-03"><h4>UG03</h4></a>
+		<a id="ugcentral" class="btn btn-primary btn-large" data-toggle="modal" data-target=".bs-modal-cemat"><h4>CEMAT</h4></a>
+	</div>
+	<!-- Formulário UG01 !-->
+	<div class="modal fade bs-example-modal-lg-01 mod" tabindex="-1" role="dialog" aria-hidden="true">
+  		<div class="modal-dialog modal-lg mod">
+   			<div class="modal-content mod">
+			    <form method="post" action="<?php echo $this->url(array('controller' => 'menu', 'action' => 'salvarug01'), null, true); ?>" class="form-group">
+			      	<fieldset>
+			      	    <div id="divug02">
+			      	   	    <div id="esq">
+			      	   	        <input class="usuario" name="usuario" type="text" value="<?php echo $this->usuario; ?>">
+						        <label> Tensão:        </label><input max="6900" min="5500" name="v1" id="v1" type="number" step="0.01" autocomplete="off" required title="Tensão?" tabindex="1"><br>
+								<label> Corrente:      </label><input name="v2" id="v2" type="number" step="0.01" autocomplete="off" required title="Corrente?"><br>
+								<label> Ajuste Atual:  </label><input name="v3" id="v3" type="number" step="0.01" autocomplete="off" required title="Ajuste Atual?"><br>
+								<label> Ajuste:        </label><input name="v4" id="v4" type="number" step="0.01" autocomplete="off" required title="Ajuste?" ><br>
+								<label> Potência Ativa:</label><input max="2500" min="0" name="v5" id="v5" type="number" step="0.01" autocomplete="off" required title="Potência Ativa"><br>
+								<label> Potência Reat.:</label><input name="v6" id="v6" type="number" step="0.01" autocomplete="off" required title="Potência Reativa"><br>
+								<label> Potência Ap.:  </label><input name="v7" id="v7" type="number" step="0.01" autocomplete="off" required title="Potência Aparente"><br>
+								<label> F.P.:          </label><input name="v8" id="v8" type="number" step="0.01" autocomplete="off" required title="F.P."><br>
+								<label> Ab(%):         </label><input name="v9" id="v9" type="number" step="0.01" autocomplete="off" required title="Ab% (Abertura)"><br>
+								<label> A(Kv):         </label><input name="v10" id="v10" type="number" step="0.01" autocomplete="off" required title="A(Kv)"><br>
+								<label> B(Kv):         </label><input name="v11" id="v11" type="number" step="0.01" autocomplete="off" required title="B(Kv)"><br>
+								<label> V(Kv):         </label><input name="v12" id="v12" type="number" step="0.01" autocomplete="off" required title="V(Kv)"><br>
+								<label> A(A):          </label><input name="v13" id="v13" type="number" step="0.01" autocomplete="off" required title="A(A)"><br>
+								<label> B(A):          </label><input name="v14" id="v14" type="number" step="0.01" autocomplete="off" required title="B(A)"><br>
+								<label> V(A):          </label><input name="v15" id="v15" type="number" step="0.01" autocomplete="off" required title="V(A)"><br>
+							</div>
+							<div id="dir">
+								<label> V:             </label><input name="v16" id="v16" type="number" step="0.01" autocomplete="off" required title="V"><br>
+								<label> I (A):          </label><input name="v17" id="v17" type="number" step="0.01" autocomplete="off" required title="I (A)"><br>
+								<label>C° A:             </label><input name="v18" id="v18" type="number" step="0.01" autocomplete="off" required title="C° A"><br>
+								<label>C° B:             </label><input name="v19" id="v19" type="number" step="0.01" autocomplete="off" required title="C° B"><br>
+								<label>C° V:             </label><input name="v20" id="v20" type="number" step="0.01" autocomplete="off" required title="C° V"><br>
+								<label>C° MTG:           </label><input name="v21" id="v21" type="number" step="0.01" autocomplete="off" required title="C° MTG"><br>
+								<label>C° MGG:           </label><input name="v22" id="v22" type="number" step="0.01" autocomplete="off" required title="C° MGG"><br>
+								<label>C° MGE:           </label><input name="v23" id="v23" type="number" step="0.01" autocomplete="off" required title="C° MGE"><br>
+								<label>C° MCE:           </label><input name="v24" id="v24" type="number" step="0.01" autocomplete="off" required title="C° MCE"><br>
+								<label>C° GRA:           </label><input name="v25" id="v25" type="number" step="0.01" autocomplete="off" required title="C° GRA"><br>
+								<label> UHRV °C:       </label><input name="v26" id="v26" type="number" step="0.01" autocomplete="off" required title="Temperatura da Unidade Hidraulica Reguladora de Velocidade"><br>
+								<label> UHRV P. Mín.:  </label><input name="v27" id="v27" type="number" step="0.01" autocomplete="off" required title="Pressão Minima da UHRV"><br>
+								<label> UHRV P. Máx.:  </label><input name="v28" id="v28" type="number" step="0.01" autocomplete="off" required title="Pressão Máxima da UHR"><br>
+								<label> UHLM °C:       </label><input name="v29" id="v29" type="number" step="0.01" autocomplete="off" required title="Temperatura da Unidade Hidráulica Lubrificadora do Mancal"><br>
+								<label> UHRLM Pres.:   </label><input name="v30" id="v30" type="number" step="0.01" autocomplete="off" required title="Pressão da UHLM"><br>
+							</div>
+							<div id="bot">
+								<button type="submit" class="btn btn-primary btn-large">Salvar UG01</button>	 
+							</div>
+						</div>		
+			      	</fieldset>		    	
+				</form>
+    		</div>
+  		</div>
+	</div>
+	<!-- Formulário UG02 !-->
+	<div class="modal fade bs-example-modal-lg-02  mod" tabindex="-1" role="dialog" aria-hidden="true">
+  		<div class="modal-dialog modal-lg  mod">
+   			<div class="modal-content  mod">
+			    <form method="post" action="<?php echo $this->url(array('controller' => 'menu', 'action' => 'salvarug02'), null, true); ?>" class="form-group">
+			      	<fieldset>
+			      	   <div id="divug02">
+			      	   	   <div id="esq">
+			      	   	   		<input class="usuario" name="usuario" type="text" value="<?php echo $this->usuario; ?>">
+						        <label> Tensão:        </label><input max="6900" min="5500" name="v1" id="v1" type="number" step="0.01" autocomplete="off" required title="Tensão?" tabindex="1"><br>
+								<label> Corrente:      </label><input name="v2" id="v2" type="number" step="0.01" autocomplete="off" required title="Corrente?"><br>
+								<label> Ajuste Atual:  </label><input name="v3" id="v3" type="number" step="0.01" autocomplete="off" required title="Ajuste Atual?"><br>
+								<label> Ajuste:        </label><input name="v4" id="v4" type="number" step="0.01" autocomplete="off" required title="Ajuste?" ><br>
+								<label> Potência Ativa:</label><input max="2500" min="0" name="v5" id="v5" type="number" step="0.01" autocomplete="off" required title="Potência Ativa"><br>
+								<label> Potência Reat.:</label><input name="v6" id="v6" type="number" step="0.01" autocomplete="off" required title="Potência Reativa"><br>
+								<label> Potência Ap.:  </label><input name="v7" id="v7" type="number" step="0.01" autocomplete="off" required title="Potência Aparente"><br>
+								<label> F.P.:          </label><input name="v8" id="v8" type="number" step="0.01" autocomplete="off" required title="F.P."><br>
+								<label> Ab(%):         </label><input name="v9" id="v9" type="number" step="0.01" autocomplete="off" required title="Ab% (Abertura)"><br>
+								<label> A(Kv):         </label><input name="v10" id="v10" type="number" step="0.01" autocomplete="off" required title="A(Kv)"><br>
+								<label> B(Kv):         </label><input name="v11" id="v11" type="number" step="0.01" autocomplete="off" required title="B(Kv)"><br>
+								<label> V(Kv):         </label><input name="v12" id="v12" type="number" step="0.01" autocomplete="off" required title="V(Kv)"><br>
+								<label> A(A):          </label><input name="v13" id="v13" type="number" step="0.01" autocomplete="off" required title="A(A)"><br>
+								<label> B(A):          </label><input name="v14" id="v14" type="number" step="0.01" autocomplete="off" required title="B(A)"><br>
+								<label> V(A):          </label><input name="v15" id="v15" type="number" step="0.01" autocomplete="off" required title="V(A)"><br>
+							</div>
+							<div id="dir">
+								<label> V:             </label><input name="v16" id="v16" type="number" step="0.01" autocomplete="off" required title="V"><br>
+								<label> I (A):          </label><input name="v17" id="v17" type="number" step="0.01" autocomplete="off" required title="I (A)"><br>
+								<label>C° A:             </label><input name="v18" id="v18" type="number" step="0.01" autocomplete="off" required title="C° A"><br>
+								<label>C° B:             </label><input name="v19" id="v19" type="number" step="0.01" autocomplete="off" required title="C° B"><br>
+								<label>C° V:             </label><input name="v20" id="v20" type="number" step="0.01" autocomplete="off" required title="C° V"><br>
+								<label>C° MTG:           </label><input name="v21" id="v21" type="number" step="0.01" autocomplete="off" required title="C° MTG"><br>
+								<label>C° MGG:           </label><input name="v22" id="v22" type="number" step="0.01" autocomplete="off" required title="C° MGG"><br>
+								<label>C° MGE:           </label><input name="v23" id="v23" type="number" step="0.01" autocomplete="off" required title="C° MGE"><br>
+								<label>C° MCE:           </label><input name="v24" id="v24" type="number" step="0.01" autocomplete="off" required title="C° MCE"><br>
+								<label>C° GRA:           </label><input name="v25" id="v25" type="number" step="0.01" autocomplete="off" required title="C° GRA"><br>
+								<label> UHRV °C:       </label><input name="v26" id="v26" type="number" step="0.01" autocomplete="off" required title="Temperatura da Unidade Hidraulica Reguladora de Velocidade"><br>
+								<label> UHRV P. Mín.:  </label><input name="v27" id="v27" type="number" step="0.01" autocomplete="off" required title="Pressão Minima da UHRV"><br>
+								<label> UHRV P. Máx.:  </label><input name="v28" id="v28" type="number" step="0.01" autocomplete="off" required title="Pressão Máxima da UHR"><br>
+								<label> UHLM °C:       </label><input name="v29" id="v29" type="number" step="0.01" autocomplete="off" required title="Temperatura da Unidade Hidráulica Lubrificadora do Mancal"><br>
+								<label> UHRLM Pres.:   </label><input name="v30" id="v30" type="number" step="0.01" autocomplete="off" required title="Pressão da UHLM"><br>
+							</div>
+							<div id="bot">
+								<button type="submit" class="btn btn-primary btn-large">Salvar UG02</button>	 
+							</div>
+						</div>		
+			      	</fieldset>		    	
+				</form>
+    		</div>
+  		</div>
+	</div>
+	<!-- Formulário UG03 !-->
+	<div class="modal fade bs-example-modal-lg-03  mod" tabindex="-1" role="dialog" aria-hidden="true">
+  		<div class="modal-dialog modal-lg  mod">
+   			<div class="modal-content  mod">
+			    <form method="post" action="<?php echo $this->url(array('controller' => 'menu', 'action' => 'salvarug03'), null, true); ?>" class="form-group">
+			      	<fieldset>
+			      	   <div id="divug02">
+			      	   	   <div id="esq">
+			      	   	        <input class="usuario" name="usuario" type="text" value="<?php echo $this->usuario; ?>">
+						        <label> Tensão:        </label><input max="6900" min="5500" name="v1" id="v1" type="number" step="0.01" autocomplete="off" required title="Tensão?" tabindex="1"><br>
+								<label> Corrente:      </label><input name="v2" id="v2" type="number" step="0.01" autocomplete="off" required title="Corrente?"><br>
+								<label> Ajuste Atual:  </label><input name="v3" id="v3" type="number" step="0.01" autocomplete="off" required title="Ajuste Atual?"><br>
+								<label> Ajuste:        </label><input name="v4" id="v4" type="number" step="0.01" autocomplete="off" required title="Ajuste?" ><br>
+								<label> Potência Ativa:</label><input max="2500" min="0" name="v5" id="v5" type="number" step="0.01" autocomplete="off" required title="Potência Ativa"><br>
+								<label> Potência Reat.:</label><input name="v6" id="v6" type="number" step="0.01" autocomplete="off" required title="Potência Reativa"><br>
+								<label> Potência Ap.:  </label><input name="v7" id="v7" type="number" step="0.01" autocomplete="off" required title="Potência Aparente"><br>
+								<label> F.P.:          </label><input name="v8" id="v8" type="number" step="0.01" autocomplete="off" required title="F.P."><br>
+								<label> Ab(%):         </label><input name="v9" id="v9" type="number" step="0.01" autocomplete="off" required title="Ab% (Abertura)"><br>
+								<label> A(Kv):         </label><input name="v10" id="v10" type="number" step="0.01" autocomplete="off" required title="A(Kv)"><br>
+								<label> B(Kv):         </label><input name="v11" id="v11" type="number" step="0.01" autocomplete="off" required title="B(Kv)"><br>
+								<label> V(Kv):         </label><input name="v12" id="v12" type="number" step="0.01" autocomplete="off" required title="V(Kv)"><br>
+								<label> A(A):          </label><input name="v13" id="v13" type="number" step="0.01" autocomplete="off" required title="A(A)"><br>
+								<label> B(A):          </label><input name="v14" id="v14" type="number" step="0.01" autocomplete="off" required title="B(A)"><br>
+								<label> V(A):          </label><input name="v15" id="v15" type="number" step="0.01" autocomplete="off" required title="V(A)"><br>
+							</div>
+							<div id="dir">
+								<label> V:             </label><input name="v16" id="v16" type="number" step="0.01" autocomplete="off" required title="V"><br>
+								<label> I (A):          </label><input name="v17" id="v17" type="number" step="0.01" autocomplete="off" required title="I (A)"><br>
+								<label>C° A:             </label><input name="v18" id="v18" type="number" step="0.01" autocomplete="off" required title="C° A"><br>
+								<label>C° B:             </label><input name="v19" id="v19" type="number" step="0.01" autocomplete="off" required title="C° B"><br>
+								<label>C° V:             </label><input name="v20" id="v20" type="number" step="0.01" autocomplete="off" required title="C° V"><br>
+								<label>C° MTG:           </label><input name="v21" id="v21" type="number" step="0.01" autocomplete="off" required title="C° MTG"><br>
+								<label>C° MGG:           </label><input name="v22" id="v22" type="number" step="0.01" autocomplete="off" required title="C° MGG"><br>
+								<label>C° MGE:           </label><input name="v23" id="v23" type="number" step="0.01" autocomplete="off" required title="C° MGE"><br>
+								<label>C° MCE:           </label><input name="v24" id="v24" type="number" step="0.01" autocomplete="off" required title="C° MCE"><br>
+								<label>C° GRA:           </label><input name="v25" id="v25" type="number" step="0.01" autocomplete="off" required title="C° GRA"><br>
+								<label> UHRV °C:       </label><input name="v26" id="v26" type="number" step="0.01" autocomplete="off" required title="Temperatura da Unidade Hidraulica Reguladora de Velocidade"><br>
+								<label> UHRV P. Mín.:  </label><input name="v27" id="v27" type="number" step="0.01" autocomplete="off" required title="Pressão Minima da UHRV"><br>
+								<label> UHRV P. Máx.:  </label><input name="v28" id="v28" type="number" step="0.01" autocomplete="off" required title="Pressão Máxima da UHR"><br>
+								<label> UHLM °C:       </label><input name="v29" id="v29" type="number" step="0.01" autocomplete="off" required title="Temperatura da Unidade Hidráulica Lubrificadora do Mancal"><br>
+								<label> UHRLM Pres.:   </label><input name="v30" id="v30" type="number" step="0.01" autocomplete="off" required title="Pressão da UHLM"><br>
+
+							</div>
+							<div id="bot">
+								<button type="submit" class="btn btn-primary btn-large">Salvar UG03</button>	 
+							</div>
+						</div>		
+			      	</fieldset>		    	
+				</form>
+    		</div>
+  		</div>
+	</div>
+	<!-- Formulário CEMAT !-->
+	<div class="modal fade bs-modal-cemat  mod" tabindex="-2" role="dialog" aria-hidden="true">
+  		<div class="modal-dialog modal-lg  mod">
+   			<div class="modal-content  mod">
+			    <form method="post" action="<?php echo $this->url(array('controller' => 'menu', 'action' => 'salvardadoscemat'), null, true); ?>" class="form-group">
+			      	<fieldset>
+			      	   <div id="divcemat">
+			      	   	    <div id="esq">
+								<input class="usuario" name="usuario" type="text" value="<?php echo $this->usuario; ?>">
+						        <label>Nível Canal: </label><input name="v1" id="v1" type="number" step="0.01" autocomplete="off" required title="Nível Canal?" tabindex="1"><br>
+								<label>A (Kv):</label><input  name="v2" id="v2" type="number" step="0.01" autocomplete="off" required title="A(Kv)?"><br>
+								<label>B (Kv):</label><input name="v3" id="v3" type="number" step="0.01" autocomplete="off" required title="B(Kv) ?"><br>
+								<label>V (Kv):</label><input name="v4" id="v4" type="number" step="0.01" autocomplete="off" required title="V(Kv)?" ><br>
+								<label>A (A):</label><input name="v5" id="v5" type="number" step="0.01" autocomplete="off" required title="A (A)?"><br>
+								<label>B (A):</label><input name="v6" id="v6" type="number" step="0.01" autocomplete="off" required title="B (A)"><br>
+								<label>V (A):</label><input name="v7" id="v7" type="number" step="0.01" autocomplete="off" required title="V (A)"><br>
+								<label>Medição P (Kw):</label><input min="0" max="7000" name="v8" id="v8" type="number" step="0.01" autocomplete="off" required title="P (Kw)?"><br>
+								<label>Q (Kvar):</label><input name="v9" id="v9" type="number" step="0.01" autocomplete="off" required title="Q (Kvar)?"><br>
+								<label>S (Kva):</label><input name="v10" id="v10" type="number" step="0.01" autocomplete="off" required title="S (Kva)"><br>
+								<label>F.P.:</label><input name="v11" id="v11" type="number" step="0.01" autocomplete="off" required title="F.P."><br>
+						    </div>
+						    <div id="dir">
+								<label>Medição V (V):</label><input name="v12" id="v12" type="number" step="0.01" autocomplete="off" required title="Medição V (V)"><br>
+								<label>Q (Kvas):</label><input name="v13" id="v13" type="number" step="0.01" autocomplete="off" required title="S (Kva)"><br>
+								<label>S (Kva):</label><input name="v14" id="v14" type="number" step="0.01" autocomplete="off" required title="F.P."><br>
+								<label>F.P.:</label><input name="v15" id="v15" type="number" step="0.01" autocomplete="off" required title="F.P."><br>
+								<label>V (V):</label><input name="v16" id="v16" type="number" step="0.01" autocomplete="off" required title="S (Kva)"><br>
+								<label>Serv.Aux. V (V):</label><input name="v17" id="v17" type="number" step="0.01" autocomplete="off" required title="Serv. Aux. V (V)"><br>
+								<label>I (A):</label><input name="v18" id="v18" type="number" step="0.01" autocomplete="off" required title="I (A)"><br>
+								<label>Vcc:</label><input name="v19" id="v19" type="number" step="0.01" autocomplete="off" required title="Vcc"><br>
+								<label>I a:</label><input name="v20" id="v20" type="number" step="0.01" autocomplete="off" required title="Ia"><br>
+								<label>I b:</label><input name="v21" id="v21" type="number" step="0.01" autocomplete="off" required title="Ib"><br>
+								<label>I c:</label><input name="v22" id="v22" type="number" step="0.01" autocomplete="off" required title="Ic"><br>
+						    </div>
+						    <div id="bot">
+								<button type="submit" class="btn btn-primary btn-large">Salvar CEMAT</button>	 
+							</div>
+						</div>		
+			      	</fieldset>		    	
+				</form>
+    		</div>
+  		</div>
+	</div>
+</div>
+	<script>
+		var max = 110;
+		$("label").each(function(){
+		        if ($(this).width() > max)
+		            max = $(this).width();
+		    });
+		    $("label").width(max);
+	</script>
+	<!-- ---- BOTÃO DE PESQUISA DE GRÁFICO  
+	<div id="graficos" class="modal fade graficos" tabindex="-2" role="dialog" aria-hidden="true" >	
+		<div>
+				<form action="<?php// echo $this->url(array('controller' => 'menu', 'action' => 'graficos'), null, true); ?>" method="post">
+					<div id="div-form-grafico">
+						<a >
+							<button id="btn-graficos" class="glyphicon glyphicon-signal btn btn-success" type="button submit">
+								Gráficos
+							</button>
+						</a><br>
+						<label id="label-grafico">Data de Pesquisa </label> <br>
+						<input id="input-grafico" name="input-grafico" type="date" required 
+						title="Preencha a data para carregar o gráfico">
+					</div>
+				</form>
+		</div>
+	</div>
+	---- !-->
+	<!-- -----TABELA UG01----- !-->
+	<div id="consultaug01" class="modal fade tab01 consultaug01" tabindex="-2" role="dialog" aria-hidden="true" >
+		<div class="modal-dialog modal-lg consultaug01">
+	   		<div class="modal-content consultaug01">
+			<table class="table table-hover">
+			
+				<thead>
+			  		<tr>
+			  			<th>Usuário</th>
+			  		    <th>Horário</th>
+						<th>Tensão</th>
+						<th>Corrente</th>
+						<th>Ajuste Atual</th>
+						<th>Ajuste</th>
+						<th>Pot. At.</th>
+						<th>Pot. Reat.</th>
+						<th>Pot. Ap.</th>
+						<th>F.P.</th>
+						<th>Ab(%)</th>
+						<th>A(Kv)</th>
+						<th>B(Kv)</th>
+						<th>V(Kv)</th>
+						<th>A(A)</th>
+						<th>B(A)</th>
+						<th>V(A)</th>
+						<th>V</th>
+						<th>I(A)</th>
+						<th>A</th>
+						<th>B</th>
+						<th>V</th>
+						<th>MTG</th>
+						<th>MGG</th>
+					    <th>MGE</th>
+						<th>MCE</th>
+						<th>GRA</th>
+						<th>UHRV °C</th>
+						<th>UHRV P. Mín.</th>
+						<th> UHRV P. Máx.</th>
+						<th>UHLM °C</th>
+						<th>UHRLM Pres.</th>
+					</tr>
+					<tbody>
+					<?php 
+						foreach ($this->dados01 as $key => $value) {
+							echo "<tr><td>";
+							echo  $value['usuario'];
+							echo "</td>";
+							echo "<td>";
+							echo  $value['data'] .' '. $value['horario'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['tensao'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['corrente'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['ajusteat'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['ajuste'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['pativa'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['preativa'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['paparente'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['fp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['ab'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['a_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['b_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['a__a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['b_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['i_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['a_temp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['b_temp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v_temp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mtg'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mg_lna'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mte'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mtce'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['gra'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhrv_c'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhrv_pmin'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhrv_pmax'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhlm_c'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhlm_pres'];
+							echo "</td> </tr>";
+						}
+					 ?>
+					</tbody>
+				</thead>
+			  </table>
+			</div>
+		</div>
+	</div>
+	<!-- ----TABELA UG02---- !-->
+	<div id="consultaug02" class="modal fade tab02 consultaug02" tabindex="-2" role="dialog" aria-hidden="true" >
+		<div class="modal-dialog modal-lg consultaug02">
+	   		<div class="modal-content consultaug02">
+			<table class="table table-hover">
+				<thead>
+			  		<tr>
+			  			<th>Usuário</th>
+			  		    <th>Horário</th>
+						<th>Tensão</th>
+						<th>Corrente</th>
+						<th>Ajuste Atual</th>
+						<th>Ajuste</th>
+						<th>Pot. At.</th>
+						<th>Pot. Reat.</th>
+						<th>Pot. Ap.</th>
+						<th>F.P.</th>
+						<th>Ab(%)</th>
+						<th>A(Kv)</th>
+						<th>B(Kv)</th>
+						<th>V(Kv)</th>
+						<th>A(A)</th>
+						<th>B(A)</th>
+						<th>V(A)</th>
+						<th>V</th>
+						<th>I(A)</th>
+						<th>A</th>
+						<th>B</th>
+						<th>V</th>
+						<th>MTG</th>
+						<th>MGG</th>
+						<th>MGE</th>
+						<th>MCE</th>
+						<th>GRA</th>
+						<th>UHRV °C</th>
+						<th>UHRV P. Mín.</th>
+						<th> UHRV P. Máx.</th>
+						<th>UHLM °C</th>
+						<th>UHRLM Pres.</th>
+					</tr>
+					<tbody>
+					<?php 
+						foreach ($this->dados02 as $key => $value) {
+							echo "<tr><td>";
+							echo  $value['usuario'];
+							echo "</td>";
+							echo "<td>";
+							echo  $value['data'] .' '. $value['horario'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['tensao'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['corrente'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['ajusteat'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['ajuste'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['pativa'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['preativa'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['paparente'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['fp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['ab'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['a_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['b_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['a__a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['b_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['i_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['a_temp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['b_temp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v_temp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mtg'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mg_lna'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mte'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mtce'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['gra'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhrv_c'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhrv_pmin'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhrv_pmax'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhlm_c'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhlm_pres'];
+							echo "</td> </tr>";
+						}
+					 ?>
+					</tbody>
+				</thead>
+			  </table>
+			</div>
+		</div>
+	</div>
+	<!-- ----TABELA UG03---- !-->
+	<div id="consultaug03" class="modal fade tab03 consultaug03" tabindex="-2" role="dialog" aria-hidden="true" >
+		<div class="modal-dialog modal-lg consultaug03">
+	   		<div class="modal-content consultaug03">
+			<table class="table table-hover">
+			
+				<thead>
+			  		<tr>
+			  			<th>Usuário</th>
+			  		    <th>Horário</th>
+						<th>Tensão</th>
+						<th>Corrente</th>
+						<th>Ajuste Atual</th>
+						<th>Ajuste</th>
+						<th>Pot. At.</th>
+						<th>Pot. Reat.</th>
+						<th>Pot. Ap.</th>
+						<th>F.P.</th>
+						<th>Ab(%)</th>
+						<th>A(Kv)</th>
+						<th>B(Kv)</th>
+						<th>V(Kv)</th>
+						<th>A(A)</th>
+						<th>B(A)</th>
+						<th>V(A)</th>
+						<th>V</th>
+						<th>I(A)</th>
+						<th>A</th>
+						<th>B</th>
+						<th>V</th>
+						<th>MTG</th>
+						<th>MGG</th>
+						<th>MGE</th>
+						<th>MCE</th>
+						<th>GRA</th>
+						<th>UHRV °C</th>
+						<th>UHRV P. Mín.</th>
+						<th>UHRV P. Máx.</th>
+						<th>UHLM °C</th>
+						<th>UHLM Pres.</th>
+					</tr>
+					<tbody>
+					<?php 
+						foreach ($this->dados03 as $key => $value) {
+							echo "<tr><td>";
+							echo  $value['usuario'];
+							echo "</td>";
+							echo "<td>";
+							echo  $value['data'] .' '. $value['horario'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['tensao'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['corrente'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['ajusteat'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['ajuste'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['pativa'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['preativa'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['paparente'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['fp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['ab'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['a_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['b_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['a__a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['b_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['i_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['a_temp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['b_temp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['v_temp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mtg'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mg_lna'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mte'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['mtce'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['gra'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhrv_c'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhrv_pmin'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhrv_pmax'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhlm_c'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['uhlm_pres'];
+							echo "</td> </tr>";
+						}
+					 ?>
+					</tbody>
+				</thead>
+			  </table>
+			</div>
+		</div>
+	</div>
+	<div id="consultacemat" class="modal fade tabcemat consultacemat" tabindex="-2" role="dialog" aria-hidden="true" >
+		<div class="modal-dialog modal-lg consultacemat">
+	   		<div class="modal-content consultacemat">
+			<table class="table table-hover">
+				<thead>
+			  		<tr>
+			  			<th>Usuário</th>
+			  		    <th>Horário</th>
+						<th>Nível do Canal</th>
+						<th>A (kv) </th>
+						<th>B (kv)</th>
+						<th>V (kv)</th>
+						<th>A (A)</th>
+						<th>B (A)</th>
+						<th>V (A)</th>
+						<th>P (Kw)</th>
+						<th>Q (Kvar)</th>
+						<th>S (Kva)</th>
+						<th>F.P.:</th>
+						<th>P (Kw) 1</th>
+						<th>Q (Kvar) 2</th>
+						<th>S (Kva) 3</th>
+						<th>F.P. 4:</th>
+						<th>V (V)</th>
+						<th>V (V)</th>
+						<th>I (A)</th>
+						<th>VCC</th>
+						<th>I a</th>
+						<th>I b</th>
+						<th>I c</th>
+					</tr>
+					<tbody>
+					<?php 
+						foreach ($this->dadoscemat as $key => $value) {
+							echo "<tr><td>";
+							echo  $value['usuario'];
+							echo "</td>";
+							echo "<td>";
+							echo  $value['data'] .' '. $value['horario'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['nivel_canal'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['usina_a_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['usina_b_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['usina_v_kv'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['usina_a_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['usina_b_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['usina_v_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['usina_p_kw'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['usina_q_kvar'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['usina_f_kva'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['usina_fp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['medicao_p_kw'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['medicao_q_kvar'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['medicao_s_kva'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['medicao_fp'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['medicao_v'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['servaux_v_v'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['servaux_i_a'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['retificador_vcc'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['retificador_la'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['retificador_lb'];
+							echo "</td>";
+							echo "<td>";
+							echo $value['retificador_lc'];
+							echo "</td> </tr>";
+						}
+					 ?>
+					</tbody>
+				</thead>
+			  </table>
+			</div>
+		</div>
+	</div>
+<link href="<?php echo $this->baseUrl() . '/css/stylemenulateral.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+<div id="accordian">
+	<ul>
+		<li>
+			<h3><span class="glyphicon glyphicon glyphicon-cog"></span>Configurações</h3>
+			<ul>
+				<li><a href="/sistema/public">LogIn</a></li>
+				<li><a href="/sistema/public">LogOff</a></li>
+				<li><a href="/sistema/public/menu/configuracoes">Parametros do Sistema</a></li>
+			</ul>
+		</li>
+		<!-- we will keep this LI open by default -->
+		<li class="">
+			<h3><span class="glyphicon glyphicon-th-list"></span>Dados [<?php echo $this->datapesquisa; ?>]</h3>
+			<ul>
+				<li><a data-target=".tab01" data-toggle="modal" href="#">Unidade Geradora 01</a></li>
+				<li><a data-target=".tab02" data-toggle="modal" href="#">Unidade Geradora 02</a></li>
+				<li><a data-target=".tab03" data-toggle="modal" href="#">Unidade Geradora 03</a></li>
+				<li><a data-target=".tabcemat" data-toggle="modal" href="#">Leitura CEMAT</a></li>
+			</ul>
+		</li>
+		<!--<li  >
+			<h3> <span class="glyphicon glyphicon-list-alt"></span>Estoque</h3>
+			<ul>
+				<li><a href="<?php //echo $this->baseUrl() . /estoque; ?>">Itens</a></li>
+			</ul>
+		</li>!-->
+		<li>
+			<h3><span class="glyphicon glyphicon-stats"></span>Gráficos</h3>
+			<ul>
+				<li><a href="<?php echo $this->baseUrl() . '/menu/graficos'; ?>">Performance Funcionamento</a></li>
+							
+			</ul>
+		</li>
+		<li>
+			<h3><span class="glyphicon glyphicon-download-alt"></span>Relatórios</h3>
+			<ul>
+				<li><a href="<?php echo $this->baseUrl() . '/manutencao/estatisticasparadas'; ?>">Paradas</a></li>
+			</ul>
+		</li>
+		<li  >
+			<h3> <span class="glyphicon glyphicon glyphicon-wrench"></span>Manutenção</h3>
+			<ul>
+				<li><a href="<?php echo $this->baseUrl() . '/manutencao'; ?>">Cadastrar Horas</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+		<!-- prefix free to deal with vendor prefixes -->
+		<script src="http://thecodeplayer.com/uploads/js/prefixfree-1.0.7.js" type="text/javascript" type="text/javascript"></script>
+
+		<!-- jQuery -->
+		<script src="http://thecodeplayer.com/uploads/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+
+		<script>
+			/*jQuery time*/
+		$(document).ready(function(){
+			$("#accordian h3").click(function(){
+				//slide up all the link lists
+				$("#accordian ul ul").slideUp();
+				//slide down the link list below the h3 clicked - only if its closed
+				if(!$(this).next().is(":visible"))
+				{
+					$(this).next().slideDown();
+				}
+			})
+		})
+		</script>
+</body>
+</html>

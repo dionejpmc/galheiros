@@ -1,0 +1,29 @@
+<html>
+<head>
+	<title></title>
+    <link href="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/css/bootstrap.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+	<script src="<?php echo $this->baseUrl() . '/js/jquery-1.11.0.min.js';?>"></script>
+    <script src="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/js/bootstrap.js'; ?>"></script>
+    <link href="<?php echo $this->baseUrl() . '/img/glyphicons/glyphicons'; ?>" media="all"/>
+    <link href="<?php echo $this->baseUrl() . '/img/glyphicons/glyphicons_social'; ?>" media="all"/>
+    <link rel="shortcut icon" href="<?php echo $this->baseUrl() . '/favicon.ico'; ?>" type="image/x-icon"/>
+</head>
+<body>
+
+<div class="form-group" style="margin-top: 10%;">
+        <label class="control-label" for="inputIcon">Tempo total paradas:</label>
+        <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+                <input id="dtpesq" name="dtpesq" type="time" style="width: 10%;"  class="input form-control"  readonly>
+        </div>
+        <label class="control-label" for="inputIcon">Adicionar Tempo:</label>
+        <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+                <input id="dtpesq" name="dtpesq" type="time" style="width: 10%;"  class="input form-control"  >
+                <button type="submit" class="btn btn-success">Adicioanr</button>
+        </div>
+</div>
+
+</script>
+</body>
+</html>

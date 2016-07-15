@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<projectProfile type="default" version="1.12.7">
+  <projectDirectory>
+    <projectProfileFile filesystemName=".zfproject.xml"/>
+    <applicationDirectory classNamePrefix="Application_">
+      <configsDirectory>
+        <applicationConfigFile type="ini"/>
+      </configsDirectory>
+      <controllersDirectory>
+        <controllerFile controllerName="Index">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="cadastrarhoras"/>
+          <actionMethod actionName="graficohoras"/>
+        </controllerFile>
+        <controllerFile controllerName="Error"/>
+        <controllerFile controllerName="Auth">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="login"/>
+          <actionMethod actionName="logout"/>
+        </controllerFile>
+        <controllerFile controllerName="Menu">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="salvarug"/>
+          <actionMethod actionName="graficos"/>
+          <actionMethod actionName="deletar"/>
+          <actionMethod actionName="salvarug02"/>
+          <actionMethod actionName="salvarug03"/>
+          <actionMethod actionName="salvarug01"/>
+          <actionMethod actionName="salvardadoscemat"/>
+          <actionMethod actionName="configuracoes"/>
+          <actionMethod actionName="salvarconfiguracoes"/>
+          <actionMethod actionName="menu"/>
+          <actionMethod actionName="cadastrarhorasmanut"/>
+          <actionMethod actionName="graficohoras"/>
+        </controllerFile>
+        <controllerFile controllerName="Salvarug02">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Salvarcemat">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Estoque">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="salvariten"/>
+          <actionMethod actionName="novoitem"/>
+          <actionMethod actionName="excluirlinha"/>
+          <actionMethod actionName="decrementaritem"/>
+          <actionMethod actionName="extornaritem"/>
+        </controllerFile>
+        <controllerFile controllerName="Manutencao">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="cadastrarhoras"/>
+          <actionMethod actionName="cadastrarhoras01"/>
+          <actionMethod actionName="cadastrarhoras02"/>
+          <actionMethod actionName="cadastrarhoras03"/>
+          <actionMethod actionName="estatisticasparadas"/>
+          <actionMethod actionName="errozerodadosrelatorioparada"/>
+        </controllerFile>
+        <controllerFile controllerName="Novoitem">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+      </controllersDirectory>
+      <formsDirectory enabled="false"/>
+      <layoutsDirectory enabled="false"/>
+      <modelsDirectory>
+        <dbTableDirectory>
+          <dbTableFile dbTableName="Usuarios"/>
+          <dbTableFile dbTableName="Ug02"/>
+          <dbTableFile dbTableName="Ug01"/>
+          <dbTableFile dbTableName="Ug03"/>
+          <dbTableFile dbTableName="Configuracoes"/>
+          <dbTableFile dbTableName="Cemat"/>
+          <dbTableFile dbTableName="Estoque"/>
+          <dbTableFile dbTableName="Itemmovimento"/>
+          <dbTableFile dbTableName="Hmanutug01"/>
+          <dbTableFile dbTableName="Hmanutug02"/>
+          <dbTableFile dbTableName="Hmanutug03"/>
+        </dbTableDirectory>
+        <modelFile modelName="Usuarios"/>
+        <modelFile modelName="DaoUsuario"/>
+        <modelFile modelName="Ug"/>
+      </modelsDirectory>
+      <modulesDirectory enabled="false"/>
+      <servicesDirectory enabled="false"/>
+      <viewsDirectory>
+        <viewScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Error">
+            <viewScriptFile forActionName="error"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Auth">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Auth">
+            <viewScriptFile forActionName="login"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Auth">
+            <viewScriptFile forActionName="logout"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="menu"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index"/>
+          <viewControllerScriptsDirectory forControllerName="Menu"/>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="salvarug"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="menu">
+            <viewScriptFile forActionName="graficos"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="graficos"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="deletar"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Salvarug02">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="salvarug02"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="salvarug03"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="salvarug01"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="salvardadoscemat"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Salvarcemat">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="configuracoes"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="salvarconfiguracoes"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Estoque">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Manutencao">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Estoque">
+            <viewScriptFile forActionName="salvariten"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Novoitem">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Estoque">
+            <viewScriptFile forActionName="novoitem"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Estoque">
+            <viewScriptFile forActionName="excluirlinha"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Estoque">
+            <viewScriptFile forActionName="decrementaritem"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Estoque">
+            <viewScriptFile forActionName="extornaritem"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="menu"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="cadastrarhorasmanut"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="cadastrarhoras"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Manutencao">
+            <viewScriptFile forActionName="cadastrarhoras"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Manutencao">
+            <viewScriptFile forActionName="cadastrarhoras01"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Manutencao">
+            <viewScriptFile forActionName="cadastrarhoras02"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Manutencao">
+            <viewScriptFile forActionName="cadastrarhoras03"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Menu">
+            <viewScriptFile forActionName="graficohoras"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="graficohoras"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Manutencao">
+            <viewScriptFile forActionName="estatisticasparadas"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Manutencao">
+            <viewScriptFile forActionName="errozerodadosrelatorioparada"/>
+          </viewControllerScriptsDirectory>
+        </viewScriptsDirectory>
+        <viewHelpersDirectory/>
+        <viewFiltersDirectory enabled="false"/>
+      </viewsDirectory>
+      <bootstrapFile filesystemName="Bootstrap.php"/>
+    </applicationDirectory>
+    <dataDirectory enabled="false">
+      <cacheDirectory enabled="false"/>
+      <searchIndexesDirectory enabled="false"/>
+      <localesDirectory enabled="false"/>
+      <logsDirectory enabled="false"/>
+      <sessionsDirectory enabled="false"/>
+      <uploadsDirectory enabled="false"/>
+    </dataDirectory>
+    <docsDirectory>
+      <file filesystemName="README.txt"/>
+    </docsDirectory>
+    <libraryDirectory>
+      <zfStandardLibraryDirectory enabled="false"/>
+    </libraryDirectory>
+    <publicDirectory>
+      <publicStylesheetsDirectory enabled="false"/>
+      <publicScriptsDirectory enabled="false"/>
+      <publicImagesDirectory enabled="false"/>
+      <publicIndexFile filesystemName="index.php"/>
+      <htaccessFile filesystemName=".htaccess"/>
+    </publicDirectory>
+    <projectProvidersDirectory enabled="false"/>
+    <temporaryDirectory enabled="false"/>
+    <testsDirectory>
+      <testPHPUnitConfigFile filesystemName="phpunit.xml"/>
+      <testPHPUnitBootstrapFile filesystemName="bootstrap.php"/>
+      <testApplicationDirectory>
+        <testApplicationControllerDirectory>
+          <testApplicationControllerFile forControllerName="Index"/>
+        </testApplicationControllerDirectory>
+      </testApplicationDirectory>
+      <testLibraryDirectory/>
+    </testsDirectory>
+  </projectDirectory>
+</projectProfile>

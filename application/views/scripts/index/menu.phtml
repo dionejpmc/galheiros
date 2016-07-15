@@ -1,0 +1,81 @@
+    <script src="<?php echo $this->baseUrl() . '/js/jscharts.js'; ?>"></script>
+    <div id="graph-line">
+        <div id="graph">Loading graph...</div>
+        <script type="text/javascript">
+          var myChart = new JSChart('graph', 'line');
+          myChart.setDataArray([[1, 900],[2, 400],[3, 600],[4, 1000],[5, 500],[6, 1600],[7, 600],[8, 800],[9, 150],[10, 100],[11, 500],[12, 500],[13, 500],[14, 500],[15, 500],[16, 2300],[17, 500],[18, 700],[19, 500],[20, 500],[21, 500],[22, 500],[23, 1500],[24, 500]],'blue');
+          myChart.setDataArray([[1, 200],[2, 600],[3, 670],[4, 2200],[5, 900],[6, 2000],[7, 1200],[8, 800],[9, 700],[10, 100],[11, 1000],[12, 500],[13, 500],[14, 500],[15, 500],[16, 500],[17, 500],[18, 900],[19, 1650],[20, 500],[21, 500],[22, 800],[23, 1500],[24, 200]], 'green');
+          myChart.setDataArray([[1, 500],[2, 400],[3, 800],[4, 1000],[5, 700],[6, 1800],[7, 999],[8, 800],[9, 150],[10, 500],[11, 500],[12, 500],[13, 500],[14, 500],[15, 500],[16, 500],[17, 500],[18, 500],[19, 500],[20, 777],[21, 444],[22, 500],[23, 2000],[24, 1500]], 'gray');
+          myChart.setAxisPaddingBottom(50);
+          myChart.setTextPaddingBottom(10);//Texto do eixo X
+          myChart.setAxisValuesNumberY(11);
+          myChart.setIntervalStartY(0);
+          myChart.setIntervalEndY(2500);
+          myChart.setTitle("Demanda Energética");
+          myChart.setTitleFontSize(16);
+          myChart.setAxisValuesPaddingBottom(20);
+
+          myChart.setLabelX([1 <?php  ?>,'01:00']);
+          myChart.setLabelX([2,'02:00']);
+          myChart.setLabelX([3,'03:00']);
+          myChart.setLabelX([4,'04:00']);
+          myChart.setLabelX([5,'05:00']);
+          myChart.setLabelX([6,'06:00']);
+          myChart.setLabelX([7,'07:00']);
+          myChart.setLabelX([8,'08:00']);
+          myChart.setLabelX([9,'09:00']);
+          myChart.setLabelX([10,'10:00']);
+          myChart.setLabelX([11,'11:00']);
+          myChart.setLabelX([12,'12:00']);
+          myChart.setLabelX([13,'13:00']);
+          myChart.setLabelX([14,'14:00']);
+          myChart.setLabelX([15,'15:00']);
+          myChart.setLabelX([16,'16:00']);
+          myChart.setLabelX([17,'17:00']);
+          myChart.setLabelX([18,'18:00']);
+          myChart.setLabelX([19,'19:00']);
+          myChart.setLabelX([20,'20:00']);
+          myChart.setLabelX([21,'21:00']);
+          myChart.setLabelX([22,'22:00']);
+          myChart.setLabelX([23,'23:00']);
+          myChart.setLabelX([24,'24:00']);
+
+
+          myChart.setAxisValuesNumberX(24);
+          myChart.setShowXValues(true);
+          myChart.setTitleColor('#454545');
+          myChart.setAxisValuesColor('#454545');
+          myChart.setLineColor('#A4D314', 'green');
+          myChart.setLineColor('#BBBBBB', 'gray');
+          myChart.setTooltip([1]);
+          myChart.setTooltip([2]);
+          myChart.setTooltip([3]);
+          myChart.setTooltip([4]);
+          myChart.setTooltip([5]);
+          myChart.setTooltip([6]);
+          myChart.setTooltip([7]);
+          myChart.setTooltip([8]);
+          myChart.setTooltip([9]);
+          myChart.setTooltip([10]);
+
+          myChart.setTooltip([11]);
+          myChart.setTooltip([12]);
+          myChart.setTooltip([13]);
+          myChart.setTooltip([14]);
+          myChart.setTooltip([15]);
+          myChart.setTooltip([16]);
+          myChart.setTooltip([17]);
+          myChart.setTooltip([18]);
+          myChart.setTooltip([19]);
+          myChart.setTooltip([20]);
+          myChart.setTooltip([21]);
+          myChart.setTooltip([22]);
+          myChart.setTooltip([23]);
+          myChart.setTooltip([24]);
+
+          myChart.setFlagColor('#9D16FC');
+          myChart.setFlagRadius(2);
+          myChart.setSize(1200, 500);
+          myChart.draw();
+        </script>
+    </div>

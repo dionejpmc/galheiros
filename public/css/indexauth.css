@@ -1,0 +1,37 @@
+body
+{
+   margin: 0px;
+   width: 100%;
+   height: 100%;
+   background: url("../img/planeta_1600x1200.jpg") no-repeat center center fixed;
+   opacity: 0.9;
+   background-size: cover; /*Css padrão*/
+  -webkit-background-size: cover; /*Css safari e chrome*/
+  -moz-background-size: cover; /*Css firefox*/
+  -ms-background-size: cover; /*Css IE não use mer#^@%#*/
+  -o-background-size: cover; /*Css Opera*/
+}
+h2{
+	color: white;
+}
+h2:hover{
+	text-shadow: 0 0 8px #f9b200;
+}
+#divautentica{
+   position: absolute;
+   width: 50%;
+   top:10%;
+   left:30%;
+   border-radius: 20px 20px 20px 20px;
+}
+.btn, h2{
+   width: 50%;
+   margin-left:  25%;
+}
+.btn:hover{
+	  opacity: 0.8;
+}
+.form-control{
+   width: 60%;
+   margin-left:  19%;
+}

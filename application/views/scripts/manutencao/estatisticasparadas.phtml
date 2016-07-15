@@ -1,0 +1,373 @@
+<html>
+<head>
+	<title></title>
+	 <meta charset="UTF-8">
+	<link href="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/css/bootstrap.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<?php  
+	function m2h($mins) {
+        // Se os minutos estiverem negativos
+        if ($mins < 0)
+            $min = abs($mins);
+        else
+            $min = $mins;
+        // Arredonda a hora
+        $h = floor($min / 60);
+        $m = ($min - ($h * 60)) / 100;
+        $horas = $h + $m;
+     
+        if ($mins < 0)
+            $horas *= -1;
+        // Separa a hora dos minutos
+        $sep = explode('.', $horas);
+        $h = $sep[0];
+        if (empty($sep[1]))
+            $sep[1] = 00;
+        $m = $sep[1];
+        // Aqui um pequeno artifício pra colocar um zero no final
+        if (strlen($m) < 2)
+            $m = $m . 0;
+        return sprintf('%02d:%02d', $h, $m);
+    }
+?>
+<div>
+    <div id="ug01diaria">
+        <table class="table table-bordered">
+          <caption style="font-weight: bold;">UG01 ( % ) Eventos diários (<?php echo $this->dtpesqdia; ?>)
+          </caption>
+            <thead>
+            <tr>
+              <th></th>
+              <th>AUTOMAÇÃO</th>
+              <th>ELÉTRICA</th>
+              <th>FORÇADA</th>
+              <th>EXTERNA</th>
+              <th>MECÂNICA</th>
+              <th>OPERACIONAL</th>
+              <th>PROGRAMADA</th>
+              <th>TRIP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>TEMPO</td>
+              <td><?php echo m2h( $this->totalhorasautomacao01); ?></td>
+              <td><?php echo m2h( $this->totalhoraseletricas01); ?></td>
+              <td><?php echo m2h( $this->totalhorasforcadas01); ?></td>                                
+              <td><?php echo m2h( $this->totalhorasexterna01); ?></td>
+              <td><?php echo m2h( $this->totalhorasmecanicas01); ?></td>
+              <td><?php echo m2h( $this->totalhorasoperacional01); ?></td>
+              <td><?php echo m2h( $this->totalhorasprogramadas01); ?></td>
+              <td><?php echo m2h( $this->totalhorastrip01); ?></td>
+            </tr>
+            <tr>
+            <td>( % )</td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualautomacao01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualeletrica01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualforcada01  * 100)) . '%' ; ?></td>                                
+              <td><?php echo sprintf("%01.2f", ($this->percentualexterna01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualmecanica01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualoperacional01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualprogramada01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualtrip01  * 100)) . '%' ; ?></td>
+            </tr>
+            <tr>
+            <td>Tempo Total</td>
+            <td><?php echo m2h( $this->totalhorasparadas01); ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="ug01semanal">
+        <table class="table table-bordered">
+          <caption style="font-weight: bold;">UG01 ( % ) Eventos periódicos (<?php echo $this->dt01sm ." á ". $this->dt02sm; ?>)</caption>
+            <thead>
+            <tr>
+              <th></th>
+              <th>AUTOMAÇÃO</th>
+              <th>ELÉTRICA</th>
+              <th>FORÇADA</th>
+              <th>EXTERNA</th>
+              <th>MECÂNICA</th>
+              <th>OPERACIONAL</th>
+              <th>PROGRAMADA</th>
+              <th>TRIP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>TEMPO</td>
+              <td><?php echo m2h( $this->smtotalhorasautomacao01); ?></td>
+              <td><?php echo m2h( $this->smtotalhoraseletricas01); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasforcadas01); ?></td>                                
+              <td><?php echo m2h( $this->smtotalhorasexterna01); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasmecanicas01); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasoperacional01); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasprogramadas01); ?></td>
+              <td><?php echo m2h( $this->smtotalhorastrip01); ?></td>
+            </tr>
+            <tr>
+            <td>( % )</td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualautomacao01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualeletrica01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualforcada01  * 100)) . '%' ; ?></td>                                
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualexterna01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualmecanica01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualoperacional01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualprogramada01  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualtrip01  * 100)) . '%' ; ?></td>
+            </tr>
+            <tr>
+            <td>Tempo Total</td>
+            <td><?php echo m2h( $this->smtotalhorasparadas01); ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    <div id="ug02diaria">
+        <table class="table table-bordered">
+          <caption style="font-weight: bold;">UG02 ( % ) Eventos diários (<?php echo $this->dtpesqdia; ?>)</caption>
+            <thead>
+            <tr>
+              <th></th>
+              <th>AUTOMAÇÃO</th>
+              <th>ELÉTRICA</th>
+              <th>FORÇADA</th>
+              <th>EXTERNA</th>
+              <th>MECÂNICA</th>
+              <th>OPERACIONAL</th>
+              <th>PROGRAMADA</th>
+              <th>TRIP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>TEMPO</td>
+              <td><?php echo m2h( $this->totalhorasautomacao02); ?></td>
+              <td><?php echo m2h( $this->totalhoraseletricas02); ?></td>
+              <td><?php echo m2h( $this->totalhorasforcadas02); ?></td>                                
+              <td><?php echo m2h( $this->totalhorasexterna02); ?></td>
+              <td><?php echo m2h( $this->totalhorasmecanicas02); ?></td>
+              <td><?php echo m2h( $this->totalhorasoperacional02); ?></td>
+              <td><?php echo m2h( $this->totalhorasprogramadas02); ?></td>
+              <td><?php echo m2h( $this->totalhorastrip02); ?></td>
+            </tr>
+            <tr>
+            <td>( % )</td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualautomacao02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualeletrica02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualforcada02  * 100)) . '%' ; ?></td>                                
+              <td><?php echo sprintf("%01.2f", ($this->percentualexterna02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualmecanica02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualoperacional02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualprogramada02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualtrip02  * 100)) . '%' ; ?></td>
+            </tr>
+            <tr>
+            <td>Tempo Total</td>
+            <td><?php echo m2h( $this->totalhorasparadas02); ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="ug03semanal">
+        <table class="table table-bordered">
+          <caption style="font-weight: bold;">UG02 ( % ) Eventos periódicos (<?php echo $this->dt01sm ." á ". $this->dt02sm; ?>)</caption>
+            <thead>
+            <tr>
+              <th></th>
+              <th>AUTOMAÇÃO</th>
+              <th>ELÉTRICA</th>
+              <th>FORÇADA</th>
+              <th>EXTERNA</th>
+              <th>MECÂNICA</th>
+              <th>OPERACIONAL</th>
+              <th>PROGRAMADA</th>
+              <th>TRIP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>TEMPO</td>
+              <td><?php echo m2h( $this->smtotalhorasautomacao02); ?></td>
+              <td><?php echo m2h( $this->smtotalhoraseletricas02); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasforcadas02); ?></td>                                
+              <td><?php echo m2h( $this->smtotalhorasexterna02); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasmecanicas02); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasoperacional02); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasprogramadas02); ?></td>
+              <td><?php echo m2h( $this->smtotalhorastrip02); ?></td>
+            </tr>
+            <tr>
+            <td>( % )</td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualautomacao02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualeletrica02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualforcada02  * 100)) . '%' ; ?></td>                                
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualexterna02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualmecanica02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualoperacional02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualprogramada02  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualtrip02  * 100)) . '%' ; ?></td>
+            </tr>
+            <tr>
+            <td>Tempo Total</td>
+            <td><?php echo m2h( $this->smtotalhorasparadas02); ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    <div id="ug03diaria">
+        <table class="table table-bordered">
+          <caption style="font-weight: bold;">UG03 ( % ) Eventos diários (<?php echo $this->dtpesqdia; ?>)</caption>
+            <thead>
+            <tr>
+              <th></th>
+              <th>AUTOMAÇÃO</th>
+              <th>ELÉTRICA</th>
+              <th>FORÇADA</th>
+              <th>EXTERNA</th>
+              <th>MECÂNICA</th>
+              <th>OPERACIONAL</th>
+              <th>PROGRAMADA</th>
+              <th>TRIP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>TEMPO</td>
+              <td><?php echo m2h( $this->totalhorasautomacao03); ?></td>
+              <td><?php echo m2h( $this->totalhoraseletricas03); ?></td>
+              <td><?php echo m2h( $this->totalhorasforcadas03); ?></td>                                
+              <td><?php echo m2h( $this->totalhorasexterna03); ?></td>
+              <td><?php echo m2h( $this->totalhorasmecanicas03); ?></td>
+              <td><?php echo m2h( $this->totalhorasoperacional03); ?></td>
+              <td><?php echo m2h( $this->totalhorasprogramadas03); ?></td>
+              <td><?php echo m2h( $this->totalhorastrip03); ?></td>
+            </tr>
+            <tr>
+            <td>( % )</td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualautomacao03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualeletrica03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualforcada03  * 100)) . '%' ; ?></td>                                
+              <td><?php echo sprintf("%01.2f", ($this->percentualexterna03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualmecanica03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualoperacional03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualprogramada03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->percentualtrip03  * 100)) . '%' ; ?></td>
+            </tr>
+            <tr>
+            <td>Tempo Total</td>
+            <td><?php echo m2h( $this->totalhorasparadas03); ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="ug03semanal">
+        <table class="table table-bordered">
+          <caption style="font-weight: bold;">UG03 ( % ) Eventos periódicos (<?php echo $this->dt01sm ." á ". $this->dt02sm; ?>)</caption>
+            <thead>
+            <tr>
+              <th></th>
+              <th>AUTOMAÇÃO</th>
+              <th>ELÉTRICA</th>
+              <th>FORÇADA</th>
+              <th>EXTERNA</th>
+              <th>MECÂNICA</th>
+              <th>OPERACIONAL</th>
+              <th>PROGRAMADA</th>
+              <th>TRIP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>TEMPO</td>
+              <td><?php echo m2h( $this->smtotalhorasautomacao03); ?></td>
+              <td><?php echo m2h( $this->smtotalhoraseletricas03); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasforcadas03); ?></td>                                
+              <td><?php echo m2h( $this->smtotalhorasexterna03); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasmecanicas03); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasoperacional03); ?></td>
+              <td><?php echo m2h( $this->smtotalhorasprogramadas03); ?></td>
+              <td><?php echo m2h( $this->smtotalhorastrip03); ?></td>
+            </tr>
+            <tr>
+            <td>( % )</td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualautomacao03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualeletrica03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualforcada03  * 100)) . '%' ; ?></td>                                
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualexterna03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualmecanica03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualoperacional03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualprogramada03  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->smpercentualtrip03  * 100)) . '%' ; ?></td>
+            </tr>
+            <tr>
+            <td>Tempo Total</td>
+            <td><?php echo m2h( $this->smtotalhorasparadas03); ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<style type="text/css">
+#geralsemanal th{
+  background-color: #5cb85c;
+}
+#geralsemanal caption{
+  color: red;
+}
+</style>
+    <div id="geralsemanal">
+        <table class="table table-bordered">
+          <caption style="font-weight: bold;">( % ) Geral eventos periódicos (UG01 + UG02 + UG03) (<?php echo $this->dt01sm ." á ". $this->dt02sm; ?>)</caption>
+            <thead>
+            <tr>
+              <th></th>
+              <th>AUTOMAÇÃO</th>
+              <th>ELÉTRICA</th>
+              <th>FORÇADA</th>
+              <th>EXTERNA</th>
+              <th>MECÂNICA</th>
+              <th>OPERACIONAL</th>
+              <th>PROGRAMADA</th>
+              <th>TRIP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>TEMPO</td>
+              <td><?php echo m2h( $this->grtotalhorasautomacao); ?></td>
+              <td><?php echo m2h( $this->grtotalhoraseletricas); ?></td>
+              <td><?php echo m2h( $this->grtotalhorasforcadas); ?></td>                                
+              <td><?php echo m2h( $this->grtotalhorasexterna); ?></td>
+              <td><?php echo m2h( $this->grtotalhorasmecanicas); ?></td>
+              <td><?php echo m2h( $this->grtotalhorasoperacional); ?></td>
+              <td><?php echo m2h( $this->grtotalhorasprogramadas); ?></td>
+              <td><?php echo m2h( $this->grtotalhorastrip); ?></td>
+            </tr>
+            <tr>
+            <td>( % )</td>
+              <td><?php echo sprintf("%01.2f", ($this->grpercentualautomacao  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->grpercentualeletrica  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->grpercentualforcada  * 100)) . '%' ; ?></td>                                
+              <td><?php echo sprintf("%01.2f", ($this->grpercentualexterna  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->grpercentualmecanica  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->grpercentualoperacional  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->grpercentualprogramada  * 100)) . '%' ; ?></td>
+              <td><?php echo sprintf("%01.2f", ($this->grpercentualtrip  * 100)) . '%' ; ?></td>
+            </tr>
+            <tr>
+            <td>Tempo Total</td>
+            <td><?php echo m2h( $this->grtotalhorasparadas); ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

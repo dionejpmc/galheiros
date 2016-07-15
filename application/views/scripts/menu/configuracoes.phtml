@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="shortcut icon" href="<?php echo $this->baseUrl() . '/favicon.ico'; ?>" type="image/x-icon"/>
+	<link href="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/css/bootstrap.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+	<script src="<?php echo $this->baseUrl() . '/js/jquery-1.11.0.min.js';?>"></script>
+    <script src="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/js/bootstrap.js'; ?>"></script>
+    <link href="<?php echo $this->baseUrl() . '/img/glyphicons/glyphicons'; ?>" media="all"/>
+    <link href="<?php echo $this->baseUrl() . '/img/glyphicons/glyphicons_social'; ?>" media="all"/>
+    <link rel="shortcut icon" href="<?php echo $this->baseUrl() . '/favicon.ico'; ?>" type="image/x-icon"/>
+    	<?php 
+
+      date_default_timezone_set('America/Cuiaba');
+        $horario  =  date('H:i');
+        $datahoje =  date('d-m-Y');
+	 ?>
+	<meta charset="UTF-8">
+	<title>Configuraçoes</title>
+</head>
+<body>
+	<div>
+    <a style="margin-left: 45%;" href="<?php echo $this->url(array('controller' => 'menu', 'action' => 'index'), null, true); ?>"><button type="submit" style="width: 10%; " class="btn btn-warning"> Menu</button></a>
+</div>
+	<div>
+		<form action="<?php echo $this->url(array('controller' => 'menu', 'action' => 'salvarconfiguracoes'), null, true); ?>" method="post">
+			<div class="form-group" style="margin-top: 5%;">
+		  		<label class="control-label" for="inputIcon">Data Filtro Diário</label>
+				<div class="input-group">
+			          <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+			          <input required  id="dtpesq" name="dtpesq" type="date" style="width: 15%;"  class="input form-control"  data-toggle="popover" data-placement="right" data-content="Data de pesquisa de dados diários.">
+		        </div><br>
+		        <label class="control-label" for="inputIcon">Data Filtro Periódico</label><br> 
+		        <label class="control-label" for="inputIcon">Inicial</label>
+		        <div class="input-group">
+			          <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+			          <input required  id="dtpesqperiodo1" name="dtpesqperiodo1" type="date" style="width: 15%;"  class="input form-control"  data-toggle="popover" data-placement="right" data-content="Data de pesquisa de dados periódicos.">
+		        </div><br>
+		        <label class="control-label" for="inputIcon">Final</label>
+		        <div class="input-group">
+			          <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+			          <input required  id="dtpesqperiodo2" name="dtpesqperiodo2" type="date" style="width: 15%;"  class="input form-control"  data-toggle="popover" data-placement="right" data-content="Data de pesquisa de dados periódicos.">
+		        </div>
+				<script>
+					  $(function () {
+					    $('.input').popover('hide');
+					  })
+				</script>
+		    </div>
+		    <button type="submit" class="btn btn-success" style="margin-left:  48%; margin-top: 20%;">Salvar</button>
+		</form>
+	</div>
+</body>
+</html>

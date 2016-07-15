@@ -1,0 +1,163 @@
+body{
+	width: 100%;
+    height: 100%;
+/*margin: 0px;
+background-size: 100% 100%;
+   background: url("../img/bealt-light.jpg") center no-repeat fixed;*/
+}
+.usuario{
+	display: none;
+}
+#ug{
+	z-index: -1;
+}
+#ug h4{
+	/*transform: rotate(90deg);*/
+	transform-origin: left top 0;
+	position: relative;
+	text-shadow: 0 0 8px white;
+
+}
+#ug a{
+	width: 10%;
+	padding-bottom: 15%;
+	margin-top: 10%;
+	margin-left: 10%;
+	background-image: url(../img/turbina.png) ;/* Insere a imagem */
+	opacity: 0.8;
+	background-size: 100% 100%;
+	z-index: -1;
+}
+#ug a:hover{
+	padding-bottom: 14%;
+	box-shadow: 10px 10px 5px #888888;
+}
+label{
+	/* font-family: 'Shadows Into Light', cursive; */
+	font-family: "Times New Roman", Times, serif;
+}
+input{
+	width: 30%;
+	margin-top: 5%;
+}
+fieldset{
+	margin: 0;
+	display: block;
+}
+#dir{
+	margin-left: 80%;
+	margin-top: 0;
+	margin-right: 2px;
+	width: 19%;
+	padding-right: 0;
+	z-index: 9999;
+	background: #DCDCDC;
+	border-radius: 4px 4px 4px 4px;
+	height: 100%;
+	position: fixed;
+	display: block;
+}
+#esq{
+	margin-top: 0;
+	margin-left: 5px;
+	top: 0;
+	width: 19%;
+	z-index: 9999;
+	background: #DCDCDC;
+	border-radius: 4px 4px 5px 5px;
+	height: 100%;
+	padding-bottom: 0;
+	position: fixed;
+	display: block;
+
+}
+#bot{
+	margin-bottom: 5%;
+	bottom: 5%;
+	position: fixed;
+}
+button{
+	width: 25%;
+	position: fixed;
+	left: 40%;
+
+}
+tr{
+	font-size: 10px;
+}
+th{
+	background-color: #8AC007;	
+}
+table{
+	width: 100%;
+}
+.consultaug02 {
+	top:0;
+	width: 100%;
+}
+.consultaug01 {
+	top:0;
+	width: 100%;
+}
+
+.consultaug03 {
+	top:0;
+	width: 100%;
+}
+.consultacemat{
+		top:0;
+	width: 100%;
+}
+
+#btn-graficos{
+	width: 200px;
+	left: 30%;
+}
+#div-form-grafico{
+	width: 20%;
+	position: relative;
+	left: 30%;
+}
+#div-form-grafico{
+	background: #ccc;
+	width: 40%;
+	height: 50%;
+	border-radius: 5px 5px 5px 5px;
+	opacity: 0.9;
+	position: relative;
+
+}
+#input-grafico{
+	left: 10%;
+	position: relative;
+	width: 40%;
+}
+#divcemat{
+	width: 50%;
+}
+#btn-dadostabela{
+	width: 200px;
+	left: 30%;
+}
+#div-form-dadostabela{
+	width: 20%;
+	position: relative;
+	left: 30%;
+}
+#div-form-dadostabela{
+	background: #ccc;
+	width: 40%;
+	height: 50%;
+	border-radius: 5px 5px 5px 5px;
+	opacity: 0.9;
+	position: relative;
+}
+#input-dadostabela{
+	left: 10%;
+	position: relative;
+	width: 40%;
+}
+.mod{
+	width: 100%;
+	height: 100%;
+}

@@ -1,0 +1,207 @@
+<html>
+<head>
+	<title></title>
+    <meta charset="UTF-8">
+    <link href="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/css/bootstrap.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl() . '/css/manutencao.css'; ?>" media="all" rel="stylesheet" type="text/css" />
+	<script src="<?php echo $this->baseUrl() . '/js/jquery-1.11.0.min.js';?>"></script>
+    <script src="<?php echo $this->baseUrl() . '/bootstrap-3.2.0/js/bootstrap.js'; ?>"></script>
+    <link href="<?php echo $this->baseUrl() . '/img/glyphicons/glyphicons'; ?>" media="all"/>
+    <link href="<?php echo $this->baseUrl() . '/img/glyphicons/glyphicons_social'; ?>" media="all"/>
+    <link rel="shortcut icon" href="<?php echo $this->baseUrl() . '/favicon.ico'; ?>" type="image/x-icon"/>
+</head>
+<body>
+<div>
+    <a style="margin-left: 45%;" href="<?php echo $this->url(array('controller' => 'menu', 'action' => 'index'), null, true); ?>"><button type="submit" style="width: 10%; " class="btn btn-warning"> Voltar ao Menu</button></a>
+</div>
+<?php 
+$soma01 = 0;
+foreach ($this->totalhoras01 as $key => $value) {
+    list( $h, $m, $s ) = explode( ':',  $value['horas'] );
+    $soma01 +=  (($h * 60) + ($m) );
+}
+$soma01 = $soma01;
+ ?>
+
+<?php 
+$soma02 = 0;
+foreach ($this->totalhoras02 as $key => $value) {
+    list( $h, $m, $s ) = explode( ':',  $value['horas'] );
+    $soma02 +=  (($h * 60) + ($m) );
+}
+$soma02 = $soma02 ;
+ ?>
+ <?php 
+$soma03 = 0;
+foreach ($this->totalhoras03 as $key => $value) {
+    list( $h, $m, $s ) = explode( ':',  $value['horas'] );
+    $soma03 +=  (($h * 60) + ($m) );
+}
+$soma03 = $soma03;
+ ?>
+ <?php 
+function m2h($mins) {
+        // Se os minutos estiverem negativos
+        $h=0;
+        $m=0;
+        $horas=0;
+        if ($mins < 0)
+            $min = abs($mins);
+        else
+            $min = $mins;
+        // Arredonda a hora
+        $h = floor($min / 60);
+        $m = ($min - ($h * 60)) / 100;
+        $horas = $h + $m;
+ 
+        // Matemática da quinta série
+        // Detalhe: Aqui também pode se usar o abs()
+        if ($mins < 0)
+            $horas *= -1;
+        // Separa a hora dos minutos
+        $sep = explode('.', $horas);
+        $h = $sep[0];
+        if (empty($sep[1]))
+            $sep[1] = 00;
+        $m = $sep[1];
+        // Aqui um pequeno artifício pra colocar um zero no final
+        if (strlen($m) < 2)
+            $m = $m . 0;
+        return sprintf('%02d:%02d', $h, $m);
+    }
+  ?>
+  <script type="text/javascript">
+    $(function(){
+                //inserir os códigos aqui 
+             $(".elist").blur(function(){
+                    if (
+                            $(this).val() !== "ELÉTRICA"        && 
+                            $(this).val() !== "PROGRAMADA"      && 
+                            $(this).val() !== "EXTERNA"         && 
+                            $(this).val() !== "MECÂNICA"        &&
+                            $(this).val() !== "TRIP"            && 
+                            $(this).val() !== "AUTOMAÇÃO"       && 
+                            $(this).val() !== "FORÇADA"         && 
+                            $(this).val() !== "OPERACIONAL" 
+                        )
+                        {
+    
+                            $(".elist").val('');
+                        };
+                    })
+            });
+  </script>
+<datalist id="exampleList">
+        <option value="AUTOMAÇÃO">
+        <option value="ELÉTRICA">
+        <option value="EXTERNA">
+        <option value="FORÇADA">
+        <option value="MECÂNICA">
+        <option value="OPERACIONAL">
+        <option value="PROGRAMADA">
+        <option value="TRIP">
+</datalist>
+<div class="form-group" id="fg1">
+	<form  method="post" action="<?php echo $this->url(array('controller' => 'manutencao', 'action' => 'cadastrarhoras01'), null, true); ?>">
+        <label class="control-label" for="inputIcon">Tempo total paradas UG01:</label>
+        <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-time"></i></div>
+                <input id="tempototal" name="tempototal" style="width: 10%;"  class="input form-control"  readonly     value="<?php echo  m2h($soma01); ?>";>
+        </div>
+        <label class="control-label" for="inputIcon">Tipo de Ocorrência</label>
+         <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></div>
+            <input class="input form-control elist" style="width: 15%;" type="text" name="tipoparada" list="exampleList" required  >
+    
+        </div>
+        <label class="control-label" for="inputIcon">Adicionar Tempo:</label>
+        <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-time"></i></div>
+            <input id="tempoadd" name="tempoadd" type="time" style="width: 10%;"  class="input form-control" required title="Digite o tempo que a unidade permaneceu parada." x-moz-errormessage="Não se esqueça  do tempo..." >
+             <button type="submit" class="btn btn-success">Adicionar</button>
+        </div>
+       
+            <textarea name="text01" class="text-group input" rows="3" cols="100">Justificativa/Solução:</textarea>
+        
+    </form>
+</div>
+<div class="form-group" id="fg2">
+    <form  method="post" action="<?php echo $this->url(array('controller' => 'manutencao', 'action' => 'cadastrarhoras02'), null, true); ?>">
+        <label class="control-label" for="inputIcon">Tempo total paradas UG02:</label>
+        <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-time"></i></div>
+                <input id="tempototal" name="tempototal" id="elist" style="width: 15%;"  class="input form-control"  readonly   
+                value="<?php echo  m2h($soma02); ?>";>
+        </div>
+        <label class="control-label" for="inputIcon">Tipo de Ocorrência</label>
+         <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></div>
+            <input class="input form-control elist" style="width: 15%;" type="text" name="tipoparada" list="exampleList" required >
+        </div>
+        <label class="control-label" for="inputIcon">Adicionar Tempo:</label>
+        <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-time"></i></div>
+                <input id="tempoadd" name="tempoadd" type="time" style="width: 10%;"  class="input form-control" required title="Digite o tempo que a unidade permaneceu parada." x-moz-errormessage="Não se esqueça  do tempo..." >
+                <button type="submit" class="btn btn-success">Adicionar</button>
+        </div>
+            <textarea name="text02"class="text-group input" rows="3" cols="100">Justificativa/Solução:</textarea>
+    </form>
+</div>
+<div class="form-group" id="fg3">
+    <form  method="post" action="<?php echo $this->url(array('controller' => 'manutencao', 'action' => 'cadastrarhoras03'), null, true); ?>">
+        <label class="control-label" for="inputIcon">Tempo total paradas UG03:</label>
+        <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-time"></i></div>
+                <input id="tempototal" name="tempototal" id="elist" style="width: 10%;"  class="input form-control"  readonly   value="<?php echo m2h($soma03); ?>";>
+        </div>
+                <label class="control-label" for="inputIcon">Tipo de Ocorrência</label>
+         <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></div>
+            <input class="input form-control elist" style="width: 15%;" type="text" name="tipoparada" list="exampleList" required>
+        </div>
+        <label class="control-label" for="inputIcon">Adicionar Tempo:</label>
+        <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-time"></i></div>
+                <input id="tempoadd" name="tempoadd" type="time" style="width: 10%;"  class="input form-control" required 
+                title="Digite o tempo que a unidade permaneceu parada." x-moz-errormessage="Não se esqueça  do tempo..." >
+                <button type="submit" class="btn btn-success">Adicionar</button>
+        </div>
+           <textarea name="text03" class="text-group input" rows="3" cols="100">Justificativa/Solução:</textarea>
+    </form>
+</div>
+<fieldset>
+ <legend  align= "center"> Leitura PCPU</legend>
+ <label>ESTA LEITURA DEVE SER CADASTRADA ANTES DA MEIA NOITE.</label>
+<div>
+    <form>
+        <div  id="leiturapcpu">
+            <label class="control-label" for="inputIcon">Leitura Tempo PCPU01:</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-time"></i></div>
+                <input id="tempo01" name="tempo01" type="" style="width: 10%;"  class="input form-control" required 
+                title="Digite o tempo que a unidade permaneceu parada." x-moz-errormessage="Não se esqueça  do tempo..." >
+                
+            </div>
+        </div>
+         <div  id="leiturapcpu">
+            <label class="control-label" for="inputIcon">Leitura Tempo PCPU02:</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-time"></i></div>
+                <input id="tempo01" name="tempo01" type="" style="width: 10%;"  class="input form-control" required title="Digite o tempo que a unidade permaneceu parada." x-moz-errormessage="Não se esqueça  do tempo..." >
+                
+            </div>
+        </div>
+         <div  id="leiturapcpu">
+            <label class="control-label" for="inputIcon">Leitura Tempo PCPU03:</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-time"></i></div>
+                <input id="tempo03" name="tempo03" type="" style="width: 10%;"  class="input form-control" required title="Digite o tempo que a unidade permaneceu parada." x-moz-errormessage="Não se esqueça  do tempo..." >
+                
+            </div>
+        </div>
+        <button id="btntarifaelevada" type="submit" class="btn btn-success">Adicionar</button>
+    </form>
+</div>
+</fieldset>
+</body>
+</html>
