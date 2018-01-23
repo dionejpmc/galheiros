@@ -1,14 +1,5 @@
 <?php
-/*Não sou a favor do uso aberto de drogas, é necessário um controle rígido, 
-coisa que duvido que vá acontecer, mas uma coisa me faz pensar: 
-"proibir algo é o melhor modo de lhe conferir um atrativo especial, principalmente quando a proibição consegue passar a
-impressão de que se trata de algo que produz um gozo especial. Foi e ainda é assim com o sexo. E também acontece, 
-do mesmo modo, com as drogas. Aliás, toda vez que se discute sobre permitir ou não sua legalização, 
-há momentos em que parece reinar uma grande confusão. Legalizar as drogas é algo que ainda não ocorreu? 
-E o Prozac (a "pílula da felicidade")? E os antidepressivos, os ansiolíticos e os psicotrópicos em geral? Do que se tratam? 
-E a auto medicação?" Sou a favor do uso dessas drogas por especialistas, para tratamento de doenças, somente isso. Drogas só servem,
- para a maioria massiva, para apaziguar o desamparo, 
-a culpa e a falta de provisões narcísicas. Assim como religião e outros modos de evitar ou dissimular a dor.*/
+
 class ManutencaoController extends Zend_Controller_Action
 {
 
